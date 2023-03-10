@@ -19,8 +19,8 @@
         if (password_verify($password_lama, $dataUser['password'])) {
             if ($password_baru == $verifikasi_password_baru) {
                 $password_baru_hash = password_hash($password_baru, PASSWORD_DEFAULT);
-                $query = mysqli_query($koneksi, "UPDATE user SET password = '$password_baru_hash' WHERE id_user = '$id_user'");
-                if ($query) {
+                $update_password = mysqli_query($koneksi, "UPDATE user SET password = '$password_baru_hash' WHERE id_user = '$id_user'");
+                if ($update_password) {
                     echo "
                         <script>
                             alert('Password berhasil diganti!')
@@ -72,25 +72,8 @@
 <html lang="en">
 
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
     <title>Ganti Password - <?= $dataUser['nama_lengkap']; ?></title>
-
-    <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link rel="icon" href="img/logo.png">
-    <link rel="stylesheet" href="css/style.css">
+    <?php include 'head.php'; ?>
 </head>
 
 <body id="page-top">
@@ -151,13 +134,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Markas Pancong UJ 2023</span>
-                    </div>
-                </div>
-            </footer>
+            <?php include 'footer.php' ?>
             <!-- End of Footer -->
 
         </div>
@@ -172,18 +149,7 @@
     </a>
 
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-
-
-    <script src="js/script.js"></script>
+    <?php include 'script.php' ?>
 
 </body>
 
