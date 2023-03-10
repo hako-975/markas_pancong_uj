@@ -25,7 +25,7 @@
             echo "
                 <script>
                     alert('Username sudah digunakan!')
-                    window.location='user.php'
+                    window.history.back();
                 </script>
             ";
             exit;
@@ -36,7 +36,7 @@
             echo "
                 <script>
                     alert('Password tidak sama dengan Verifikasi Password!')
-                    window.location='user.php'
+                    window.history.back();
                 </script>
             ";
             exit;
@@ -59,8 +59,8 @@
         {
             echo "
                 <script>
-                    alert('Gagal berhasil ditambahkan!')
-                    window.location='user.php'
+                    alert('User Gagal ditambahkan!')
+                    window.history.back();
                 </script>
             ";
             exit;
@@ -87,8 +87,8 @@
         {
             echo "
                 <script>
-                    alert('Gagal berhasil diubah!')
-                    window.location='user.php'
+                    alert('User Gagal diubah!')
+                    window.history.back();
                 </script>
             ";
             exit;

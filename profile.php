@@ -25,7 +25,7 @@
             echo "
                 <script>
                     alert('Profile gagal diubah!')
-                    window.location='profile.php'
+                    window.history.back();
                 </script>
             ";
             exit;
