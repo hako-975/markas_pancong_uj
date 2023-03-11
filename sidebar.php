@@ -20,9 +20,9 @@
     </li>
     <hr class="sidebar-divider my-0">
     <li class="nav-item active">
-        <a class="nav-link" href="pemesanan.php">
+        <a class="nav-link" href="pesanan.php">
             <i class="fas fa-fw fa-shopping-cart"></i>
-            <span>Pemesanan</span></a>
+            <span>Pesanan</span></a>
     </li>
 
     <!-- Divider -->
@@ -40,7 +40,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="user.php">User</a>
                 <a class="collapse-item" href="menu.php">Menu</a>
-                <a class="collapse-item" href="pemesanan.php">Pemesanan</a>
+                <a class="collapse-item" href="pesanan.php">Pesanan</a>
             </div>
         </div>
     </li>
