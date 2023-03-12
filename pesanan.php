@@ -128,7 +128,7 @@
                                             <tr class="text-center">
                                                 <th>No.</th>
                                                 <th>Nama Pemesan</th>
-                                                <th>No. Telp Pemesan</th>
+                                                <th>No. WhatsApp Pemesan</th>
                                                 <th>Alamat Pemesan</th>
                                                 <th style="min-width: 11rem;">Tanggal Pesanan</th>
                                                 <th>Status Pesanan</th>
@@ -141,7 +141,13 @@
                                                 <tr>
                                                     <td class="align-middle"><?= $i++; ?></td>
                                                     <td class="align-middle"><?= $dp['nama_pemesan']; ?></td>
-                                                    <td class="align-middle"><?= $dp['no_telp_pemesan']; ?></td>
+                                                    <?php 
+                                                        $toNumber62 = $dp['no_telp_pemesan'];
+                                                        if (substr($toNumber62, 0, 2) != "62") {
+                                                            $toNumber62 = substr_replace($toNumber62, "62", 0, 1);
+                                                        }
+                                                     ?>
+                                                    <td class="align-middle"><a target="_blank" class="btn btn-sm btn-success" href="https://wa.me/<?= $toNumber62; ?>"><i class="fab fa-fw fa-whatsapp"></i> +<?= $toNumber62; ?></a></td>
                                                     <td class="align-middle"><?= $dp['alamat_pemesan']; ?></td>
                                                     <td class="align-middle"><?= date("d-m-Y, H:i", strtotime($dp['tanggal_pesanan'])); ?></td>
                                                     <td class="align-middle"><?= ucwords($dp['status_pesanan']); ?></td>
