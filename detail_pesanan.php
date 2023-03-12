@@ -15,6 +15,7 @@
 
     $id_pesanan = $_GET['id_pesanan'];
 
+
     if (isset($_POST['btnTambahDetailPesanan'])) {
         $id_menu = htmlspecialchars($_POST['id_menu']);
         
@@ -36,6 +37,10 @@
 
 
         $insert_detail_pesanan = mysqli_query($koneksi, "INSERT INTO detail_pesanan (id_menu, jumlah, subtotal, id_pesanan) VALUES ('$id_menu', '$jumlah', '$subtotal', '$id_pesanan')");
+
+        $total_pembayaran = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUM(subtotal) as total_pembayaran FROM detail_pesanan WHERE id_pesanan = '$id_pesanan'"))['total_pembayaran'];
+        mysqli_query($koneksi, "UPDATE pesanan SET total_pembayaran = '$total_pembayaran'");
+
         if ($insert_detail_pesanan) {
             echo "
                 <script>
@@ -78,6 +83,8 @@
         $subtotal = $jumlah * $harga_menu;
 
         $update_detail_pesanan = mysqli_query($koneksi, "UPDATE detail_pesanan SET id_menu = '$id_menu', jumlah = '$jumlah', subtotal = '$subtotal', id_pesanan = '$id_pesanan' WHERE id_detail_pesanan = '$id_detail_pesanan'");
+        $total_pembayaran = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUM(subtotal) as total_pembayaran FROM detail_pesanan WHERE id_pesanan = '$id_pesanan'"))['total_pembayaran'];
+        mysqli_query($koneksi, "UPDATE pesanan SET total_pembayaran = '$total_pembayaran'");
         if ($update_detail_pesanan) {
             echo "
                 <script>
@@ -156,6 +163,53 @@
                                 </div>
                             </div>
                             <div class="card-body">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h5 class="btn btn-success">Total Pembayaran: Rp. <?= str_replace(",", ".", number_format($dataPesanan['total_pembayaran'])); ?></h5>
+                                    </div>
+                                    <div class="col">
+                                        <div class="row mb-2">
+                                            <?php 
+                                                $status = $dataPesanan['status_pesanan'];
+                                                switch ($status) {
+                                                    case 'proses':
+                                                        $prosesClass = 'bg-danger';
+                                                        $dibuatClass = 'bg-dark';
+                                                        $perjalananClass = 'bg-dark';
+                                                        $selesaiClass = 'bg-dark';
+                                                        break;
+                                                    case 'dibuat':
+                                                        $prosesClass = 'bg-dark';
+                                                        $dibuatClass = 'bg-warning';
+                                                        $perjalananClass = 'bg-dark';
+                                                        $selesaiClass = 'bg-dark';
+                                                        break;
+                                                    case 'perjalanan':
+                                                        $prosesClass = 'bg-dark';
+                                                        $dibuatClass = 'bg-dark';
+                                                        $perjalananClass = 'bg-success';
+                                                        $selesaiClass = 'bg-dark';
+                                                        break;
+                                                    case 'selesai':
+                                                        $prosesClass = 'bg-dark';
+                                                        $dibuatClass = 'bg-dark';
+                                                        $perjalananClass = 'bg-dark';
+                                                        $selesaiClass = 'bg-primary';
+                                                        break;
+                                                    default:
+                                                        $prosesClass = 'bg-dark';
+                                                        $dibuatClass = 'bg-dark';
+                                                        $perjalananClass = 'bg-dark';
+                                                        $selesaiClass = 'bg-dark';
+                                                }
+                                            ?>
+                                            <a href="ubah_status.php?id_pesanan=<?= $id_pesanan; ?>&status=proses" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi proses?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $prosesClass; ?>">Proses</a>
+                                            <a href="ubah_status.php?id_pesanan=<?= $id_pesanan; ?>&status=dibuat" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi dibuat?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $dibuatClass; ?>">Dibuat</a>
+                                            <a href="ubah_status.php?id_pesanan=<?= $id_pesanan; ?>&status=perjalanan" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi perjalanan?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $perjalananClass; ?>">Perjalanan</a>
+                                            <a href="ubah_status.php?id_pesanan=<?= $id_pesanan; ?>&status=selesai" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi selesai?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $selesaiClass; ?>">Selesai</a>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" cellspacing="0">
                                         <thead>

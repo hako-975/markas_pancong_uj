@@ -131,6 +131,7 @@
                                                 <th>No. WhatsApp Pemesan</th>
                                                 <th>Alamat Pemesan</th>
                                                 <th style="min-width: 11rem;">Tanggal Pesanan</th>
+                                                <th>Total Pembayaran</th>
                                                 <th>Status Pesanan</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -150,7 +151,20 @@
                                                     <td class="align-middle"><a target="_blank" class="btn btn-sm btn-success" href="https://wa.me/<?= $toNumber62; ?>"><i class="fab fa-fw fa-whatsapp"></i> +<?= $toNumber62; ?></a></td>
                                                     <td class="align-middle"><?= $dp['alamat_pemesan']; ?></td>
                                                     <td class="align-middle"><?= date("d-m-Y, H:i", strtotime($dp['tanggal_pesanan'])); ?></td>
-                                                    <td class="align-middle"><?= ucwords($dp['status_pesanan']); ?></td>
+                                                    <td class="align-middle">
+                                                        Rp. <?= str_replace(",", ".", number_format($dp['total_pembayaran'])); ?>
+                                                    </td>
+                                                    <td class="align-middle text-center">
+                                                        <?php if ($dp['status_pesanan'] == 'proses'): ?>
+                                                            <a onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi dibuat?')" href="ubah_status.php?id_pesanan=<?= $dp['id_pesanan']; ?>&status=dibuat" class="btn btn-danger"><?= ucwords($dp['status_pesanan']); ?></a>
+                                                        <?php elseif ($dp['status_pesanan'] == 'dibuat'): ?>
+                                                            <a onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi perjalanan?')" href="ubah_status.php?id_pesanan=<?= $dp['id_pesanan']; ?>&status=perjalanan" class="btn btn-warning"><?= ucwords($dp['status_pesanan']); ?></a>
+                                                        <?php elseif ($dp['status_pesanan'] == 'perjalanan'): ?>
+                                                            <a onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi selesai?')" href="ubah_status.php?id_pesanan=<?= $dp['id_pesanan']; ?>&status=selesai" class="btn btn-success"><?= ucwords($dp['status_pesanan']); ?></a>
+                                                        <?php elseif ($dp['status_pesanan'] == 'selesai'): ?>
+                                                            <a class="btn btn-primary"><?= ucwords($dp['status_pesanan']); ?></a>
+                                                        <?php endif ?>
+                                                    </td>
                                                     <td class="text-center align-middle">
                                                         <a class="btn btn-sm btn-success" href="detail_pesanan.php?id_pesanan=<?= $dp['id_pesanan']; ?>"><i class="fas fa-fw fa-bars"></i> Detail</a>
                                                         <a class="btn btn-sm btn-warning text-white m-1" data-toggle="modal" data-target="#ubahPesananModal<?= $dp['id_pesanan']; ?>"><i class="fas fa-fw fa-edit"></i> Ubah</a>
