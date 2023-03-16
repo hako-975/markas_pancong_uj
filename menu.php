@@ -90,6 +90,12 @@
                 exit;
             }
 
+            $image_path = 'img/menu/' . $foto_menu;
+            
+            if (file_exists($image_path)) {
+                unlink($image_path);
+            }
+
             $foto_menu = uniqid() . $foto_menu_new;
             move_uploaded_file($file_tmp, 'img/menu/' . $foto_menu);
         }
@@ -187,7 +193,7 @@
                                                     <td class="align-middle"><?= $i++; ?></td>
                                                     <td class="align-middle"><?= $dm['nama_menu']; ?></td>
                                                     <td class="align-middle">Rp. <?= str_replace(",", ".", number_format($dm['harga_menu'])); ?></td>
-                                                    <td class="align-middle"><?= $dm['jenis_menu']; ?></td>
+                                                    <td class="align-middle"><?= ucwords($dm['jenis_menu']); ?></td>
                                                     <td class="align-middle text-center">
                                                         <a href="img/menu/<?= $dm['foto_menu']; ?>" target="_blank">
                                                             <img width="200" src="img/menu/<?= $dm['foto_menu']; ?>" alt="<?= $dm['foto_menu']; ?>">
