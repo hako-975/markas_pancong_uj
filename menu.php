@@ -16,6 +16,7 @@
     if (isset($_POST['btnTambahMenu'])) {
         $nama_menu = htmlspecialchars($_POST['nama_menu']);
         $harga_menu = htmlspecialchars($_POST['harga_menu']);
+        $jenis_menu = htmlspecialchars($_POST['jenis_menu']);
 
         $foto_menu = $_FILES['foto_menu']['name'];
         if ($foto_menu != '') {
@@ -40,7 +41,7 @@
             move_uploaded_file($file_tmp, 'img/menu/'. $foto_menu);
         }
 
-        $insert_menu = mysqli_query($koneksi, "INSERT INTO menu (nama_menu, harga_menu, foto_menu) VALUES ('$nama_menu', '$harga_menu', '$foto_menu')");
+        $insert_menu = mysqli_query($koneksi, "INSERT INTO menu (nama_menu, harga_menu, jenis_menu, foto_menu) VALUES ('$nama_menu', '$harga_menu', '$jenis_menu', '$foto_menu')");
 
         if ($insert_menu) {
             echo "
@@ -67,6 +68,7 @@
         $id_menu = htmlspecialchars($_POST['id_menu']);
         $nama_menu = htmlspecialchars($_POST['nama_menu']);
         $harga_menu = htmlspecialchars($_POST['harga_menu']);
+        $jenis_menu = htmlspecialchars($_POST['jenis_menu']);
 
         $foto_menu = $_POST['foto_menu_old'];
         
@@ -93,7 +95,7 @@
         }
 
 
-        $update_menu = mysqli_query($koneksi, "UPDATE menu SET nama_menu = '$nama_menu', harga_menu = '$harga_menu', foto_menu = '$foto_menu' WHERE id_menu = '$id_menu'");
+        $update_menu = mysqli_query($koneksi, "UPDATE menu SET nama_menu = '$nama_menu', harga_menu = '$harga_menu', jenis_menu = '$jenis_menu', foto_menu = '$foto_menu' WHERE id_menu = '$id_menu'");
 
         if ($update_menu) {
             echo "
@@ -173,6 +175,7 @@
                                                 <th>No.</th>
                                                 <th>Nama Menu</th>
                                                 <th>Harga Menu</th>
+                                                <th>Jenis Menu</th>
                                                 <th>Foto Menu</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -184,6 +187,7 @@
                                                     <td class="align-middle"><?= $i++; ?></td>
                                                     <td class="align-middle"><?= $dm['nama_menu']; ?></td>
                                                     <td class="align-middle">Rp. <?= str_replace(",", ".", number_format($dm['harga_menu'])); ?></td>
+                                                    <td class="align-middle"><?= $dm['jenis_menu']; ?></td>
                                                     <td class="align-middle text-center">
                                                         <a href="img/menu/<?= $dm['foto_menu']; ?>" target="_blank">
                                                             <img width="200" src="img/menu/<?= $dm['foto_menu']; ?>" alt="<?= $dm['foto_menu']; ?>">
@@ -214,6 +218,15 @@
                                                                         <label for="harga_menu">Harga Menu<sup class="text-danger">*</sup></label>
                                                                         <input type="number" class="form-control" id="harga_menu" name="harga_menu" required value="<?= (isset($_POST['harga_menu']) ? ($_POST['harga_menu'] == '' ? $dm['harga_menu'] : $_POST['harga_menu']) : $dm['harga_menu']); ?>">
                                                                     </div>
+                                                                    <div class="form-group">
+                                                                        <label for="jenis_menu">Jenis Menu<sup class="text-danger">*</sup></label>
+                                                                        <select name="jenis_menu" id="jenis_menu" class="custom-select">
+                                                                            <option value="<?= $dm['jenis_menu']; ?>"><?= ucwords($dm['jenis_menu']); ?></option>
+                                                                            <option value="makanan"><?= ucwords('makanan'); ?></option>
+                                                                            <option value="minuman"><?= ucwords('minuman'); ?></option>
+                                                                        </select>
+                                                                    </div>
+                                                                    
                                                                     <label for="foto_menu">Foto Menu (Optional)</label>
                                                                     <div class="input-group mb-3">
                                                                       <div class="custom-file">
@@ -275,6 +288,12 @@
                 <div class="form-group">
                     <label for="harga_menu">Harga Menu<sup class="text-danger">*</sup></label>
                     <input type="number" class="form-control" id="harga_menu" name="harga_menu" required value="<?= (isset($_POST['harga_menu']) ? ($_POST['harga_menu'] == '' ? '' : $_POST['harga_menu']) : ""); ?>">
+                </div>
+                <div class="form-group">
+                    <select name="jenis_menu" id="jenis_menu" class="custom-select">
+                        <option value="makanan"><?= ucwords('makanan'); ?></option>
+                        <option value="minuman"><?= ucwords('minuman'); ?></option>
+                    </select>
                 </div>
                 <label for="foto_menu">Foto Menu<sup class="text-danger">*</sup></label>
                 <div class="input-group mb-3">

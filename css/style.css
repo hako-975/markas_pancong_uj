@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 .not-allowed
 {
 	cursor: not-allowed;
@@ -20,4 +24,16 @@
        text-align: center;
        margin-bottom: 1rem;
     }   
+}
+
+
+.jumbotron {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-image: url('../img/banner.jpg');
+  background-size: cover;
 }

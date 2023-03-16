@@ -86,6 +86,7 @@
                                             <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block">Login</button>
                                         </div>
                                     </form>
+                                    <a href="index.php">Bukan Admin?</a>
                                 </div>
                             </div>
                         </div>
