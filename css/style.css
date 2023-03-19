@@ -37,3 +37,9 @@ html {
   background-image: url('../img/banner.jpg');
   background-size: cover;
 }
+
+.btn-checkout {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+}

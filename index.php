@@ -38,7 +38,7 @@
     <div class="jumbotron text-white font-weight-bolder">
       <h1 class="display-4">Markas Pancong UJ</h1>
       <p class="lead">Lokasi: Pondok Makan Cemara, depan UNPAM Viktor</p>
-      <a class="btn btn-danger btn-lg" href="#" role="button"><i class="fas fa-fw fa-shopping-cart"></i> Pesan Sekarang!</a>
+      <a class="btn btn-danger btn-lg" href="pesan.php" role="button"><i class="fas fa-fw fa-shopping-cart"></i> Pesan Sekarang!</a>
     </div>
 
     <section id="menu">
@@ -62,17 +62,17 @@
                     <div class="tab-content" id="myTabContent">
                       <div class="tab-pane fade show active" id="makanan" role="tabpanel" aria-labelledby="makanan-tab">
                         <div class="row">
-                            <?php foreach ($menu_makanan as $dmm): ?>
-                              <div class="col-lg-4">
-                                <div class="card">
-                                  <img src="img/menu/<?= $dmm['foto_menu']; ?>" class="card-img-top" alt="<?= $dmm['foto_menu']; ?>">
-                                  <div class="card-body">
-                                    <h5 class="card-title"><?= $dmm['nama_menu']; ?></h5>
-                                    <p class="card-text">Rp. <?= str_replace(",", ".", number_format($dmm['harga_menu'])); ?></p>
-                                  </div>
+                          <?php foreach ($menu_makanan as $dmm): ?>
+                            <div class="col-lg-4">
+                              <div class="card">
+                                <img src="img/menu/<?= $dmm['foto_menu']; ?>" class="card-img-top" alt="<?= $dmm['foto_menu']; ?>">
+                                <div class="card-body">
+                                  <h5 class="card-title"><?= $dmm['nama_menu']; ?></h5>
+                                  <p class="card-text">Rp. <?= str_replace(",", ".", number_format($dmm['harga_menu'])); ?></p>
                                 </div>
                               </div>
-                            <?php endforeach ?>
+                            </div>
+                          <?php endforeach ?>
                         </div>
 
                       </div>
