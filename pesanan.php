@@ -73,8 +73,25 @@
         }
     }
 
-    $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan");
+    $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan ORDER BY tanggal_pesanan DESC");
+    if (isset($_GET['status_pesanan'])) {
+        $status_pesanan = htmlspecialchars($_GET['status_pesanan']);
+        if ($status_pesanan == 'semua') {
+            $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan ORDER BY tanggal_pesanan DESC");
+        }
+        else
+        {
+            $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = '$status_pesanan' ORDER BY tanggal_pesanan DESC");
+        }
+    }
+
     $menu = mysqli_query($koneksi, "SELECT * FROM menu");
+    
+    $pesanan_semua = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan"));
+    $pesanan_proses = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'proses'"));
+    $pesanan_dibuat = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'dibuat'"));
+    $pesanan_perjalanan = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'perjalanan'"));
+    $pesanan_selesai = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'selesai'"));
 ?>
 
 <!DOCTYPE html>
@@ -122,6 +139,17 @@
                                 </div>
                             </div>
                             <div class="card-body">
+                                <div class="row justify-content-center text-center mb-2">
+                                    <div class="col">
+                                        <h4>Filter Status:</h4>
+                                        <a href="pesanan.php?status_pesanan=semua" class="col-2 text-center text-white m-auto btn btn-dark">(<?= $pesanan_semua; ?>) Semua</a>
+                                        <a href="pesanan.php?status_pesanan=proses" class="col-2 text-center text-white m-auto btn btn-danger">(<?= $pesanan_proses; ?>) Proses</a>
+                                        <a href="pesanan.php?status_pesanan=dibuat" class="col-2 text-center text-white m-auto btn btn-warning">(<?= $pesanan_dibuat; ?>) Dibuat</a>
+                                        <a href="pesanan.php?status_pesanan=perjalanan" class="col-2 text-center text-white m-auto btn btn-success">(<?= $pesanan_perjalanan; ?>) Perjalanan</a>
+                                        <a href="pesanan.php?status_pesanan=selesai" class="col-2 text-center text-white m-auto btn btn-primary">(<?= $pesanan_selesai; ?>) Selesai</a>
+                                    </div>
+                                </div>
+                                <hr>
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" cellspacing="0">
                                         <thead>
