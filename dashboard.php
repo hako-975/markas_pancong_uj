@@ -12,6 +12,7 @@
         exit;
     }
 
+    $pesanan_semua = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan"));
     $pesanan_proses = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'proses'"));
     $pesanan_dibuat = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'dibuat'"));
     $pesanan_perjalanan = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'perjalanan'"));
@@ -19,6 +20,9 @@
 
     $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan ORDER BY tanggal_pesanan DESC");
 
+    $omset = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT *, sum(total_pembayaran) as omset FROM pesanan"));
+
+    $total_menu = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM menu"));
 
  ?>
 
@@ -47,15 +51,55 @@
                 <?php include 'topbar.php' ?>
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid bg-white rounded p-3">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                     </div>
                     <div class="row">
-                        <div class="col bg-white rounded p-3">
-                            <h4>Jumlah Pesanan Berdasarkan Status:</h4>
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Omset</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">Rp. <?= str_replace(",", ".", number_format($omset['omset'])); ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Pesanan</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $pesanan_semua; ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Menu</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_menu; ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mt-0">
+                    <div class="row">
+                        <div class="col">
+                            <h4>Total Pesanan Berdasarkan Status:</h4>
                             <!-- Content Row -->
                             <div class="row">
 
@@ -129,8 +173,9 @@
                             </div>
                         </div>
                     </div>
+                    <hr class="mt-0">
                     <div class="row">
-                        <div class="col bg-white rounded p-3">
+                        <div class="col">
                             <h4>Pesanan Terbaru:</h4>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" cellspacing="0">

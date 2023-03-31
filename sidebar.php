@@ -45,6 +45,12 @@
         </div>
     </li>
     <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+    <li class="nav-item">
+        <a class="nav-link" href="laporan.php">
+            <i class="fas fa-fw fa-file-alt"></i>
+            <span>Laporan</span></a>
+    </li>
     <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Sidebar Toggler (Sidebar) -->
