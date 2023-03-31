@@ -27,6 +27,7 @@ if (isset($_POST['btnPesan'])) {
   }
 
   if ($insert_detail_pesanan) {
+    $_SESSION['id_pesanan'] = $id_pesanan;
     echo "
       <script>
         alert('Pesanan Anda sudah diterima!');

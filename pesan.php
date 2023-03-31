@@ -29,6 +29,9 @@
             <li class="nav-item">
               <a class="nav-link btn btn-danger text-white m-1" href="index.php#menu"><i class="fas fa-fw fa-concierge-bell"></i> Menu</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link btn btn-danger text-white m-1" href="status_pesanan.php"><i class="fas fa-fw fa-check"></i> Cek Status Pesanan</a>
+            </li>
           </ul>
         </div>
       </div>
