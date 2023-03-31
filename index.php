@@ -96,7 +96,14 @@
             </div>  
         </div>
     </section>
-    <?php include 'script.php' ?>
+    <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+              <span>Copyright &copy; Markas Pancong UJ 2023</span>
+          </div>
+      </div>
+    </footer>
+  <?php include 'script.php' ?>
     
 </body>
 </html>
