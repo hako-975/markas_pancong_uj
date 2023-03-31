@@ -88,6 +88,7 @@ if ($all_zero) {
   <div class="container my-5">
     <div class="row justify-content-center">
       <div class="col-lg-8">
+        <a href="pesan.php" class="btn btn-primary mb-2"><i class="fas fa-fw fa-arrow-left"></i> Kembali</a>
         <h2 class="text-center">Checkout</h2>
         <hr>
         <table class="table table-bordered">
@@ -141,7 +142,9 @@ if ($all_zero) {
             <label for="alamat_pemesan">Alamat Pemesan</label>
             <textarea class="form-control" id="alamat_pemesan" name="alamat_pemesan" required></textarea>
           </div>
-          <button type="submit" class="btn btn-success" name="btnPesan">Pesan</button>
+          <div class="form-group text-right">
+            <button type="submit" class="btn btn-success" name="btnPesan"><i class="fa fa-fw fa-paper-plane"></i> Pesan</button>
+          </div>
         </form>
       </div>
     </div>

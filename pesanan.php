@@ -20,7 +20,7 @@
         $tanggal_pesanan = date("Y-m-d H:i:s");
         $status_pesanan = 'proses';
 
-        $insert_pesanan = mysqli_query($koneksi, "INSERT INTO pesanan (nama_pemesan, no_telp_pemesan, alamat_pemesan, tanggal_pesanan, status_pesanan) VALUES ('$nama_pemesan', '$no_telp_pemesan', '$alamat_pemesan', '$tanggal_pesanan', '$status_pesanan')");
+        $insert_pesanan = mysqli_query($koneksi, "INSERT INTO pesanan (nama_pemesan, no_telp_pemesan, alamat_pemesan, tanggal_pesanan, status_pesanan, id_user) VALUES ('$nama_pemesan', '$no_telp_pemesan', '$alamat_pemesan', '$tanggal_pesanan', '$status_pesanan', '$id_user')");
 
         if ($insert_pesanan) {
             $id_pesanan = mysqli_insert_id($koneksi);
@@ -50,7 +50,7 @@
         $no_telp_pemesan = htmlspecialchars($_POST['no_telp_pemesan']);
         $alamat_pemesan = htmlspecialchars($_POST['alamat_pemesan']);
 
-        $update_pesanan = mysqli_query($koneksi, "UPDATE pesanan SET nama_pemesan = '$nama_pemesan', no_telp_pemesan = '$no_telp_pemesan', alamat_pemesan = '$alamat_pemesan' WHERE id_pesanan = '$id_pesanan'");
+        $update_pesanan = mysqli_query($koneksi, "UPDATE pesanan SET nama_pemesan = '$nama_pemesan', no_telp_pemesan = '$no_telp_pemesan', alamat_pemesan = '$alamat_pemesan', id_user = '$id_user' WHERE id_pesanan = '$id_pesanan'");
 
         if ($update_pesanan) {
             echo "

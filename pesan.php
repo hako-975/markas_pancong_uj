@@ -49,7 +49,6 @@
         <div class="row">
           <div class="col">
               <h3 class="text-center">Makanan</h3>
-              <hr>
               <div class="row">
                 <?php foreach ($menu_makanan as $dmm): ?>
                   <div class="col-lg-3 my-2">
@@ -72,10 +71,10 @@
               </div>
           </div>
         </div>
+        <hr>
         <div class="row">
           <div class="col">
               <h3 class="text-center">Minuman</h3>
-              <hr>
               <div class="row">
                 <?php foreach ($menu_minuman as $dmm): ?>
                   <div class="col-lg-3 my-2">

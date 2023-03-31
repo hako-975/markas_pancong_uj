@@ -24,6 +24,8 @@
 
     $total_menu = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM menu"));
 
+    $menu_paling_laku = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT detail_pesanan.id_menu, nama_menu, SUM(jumlah) as laku FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu GROUP BY id_menu ORDER BY laku DESC LIMIT 1"));
+
  ?>
 
 
@@ -76,8 +78,14 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Pesanan</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $pesanan_semua; ?></div>
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Menu Paling Laku</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php if ($menu_paling_laku): ?>
+                                                <?= $menu_paling_laku['nama_menu']; ?> - <?= $menu_paling_laku['laku']; ?>
+                                                <?php else: ?>
+                                                    Tidak ada
+                                                <?php endif ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -88,13 +96,14 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Menu</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_menu; ?></div>
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Pesanan</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $pesanan_semua; ?></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                     <hr class="mt-0">
                     <div class="row">

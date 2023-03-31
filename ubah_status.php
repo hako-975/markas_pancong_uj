@@ -6,10 +6,12 @@
 	    exit;
 	}
 
+    $id_user = $_SESSION['id_user'];
+
 	$id_pesanan = $_GET['id_pesanan'];
 	$status = $_GET['status'];
 
-	$update_status = mysqli_query($koneksi, "UPDATE pesanan SET status_pesanan = '$status' WHERE id_pesanan = '$id_pesanan'");
+	$update_status = mysqli_query($koneksi, "UPDATE pesanan SET status_pesanan = '$status', id_user = '$id_user' WHERE id_pesanan = '$id_pesanan'");
 
 	if ($update_status) {
 		echo "

@@ -26,7 +26,7 @@
     </li>
 
     <!-- Divider -->
-    <hr class="sidebar-divider">
+    <hr class="sidebar-divider my-0">
 
 
     <!-- Nav Item - Pages Collapse Menu -->

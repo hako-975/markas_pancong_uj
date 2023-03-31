@@ -4,6 +4,10 @@ require_once 'koneksi.php';
 if (isset($_GET['id_pesanan'])) {
   $id_pesanan = $_GET['id_pesanan'];
   $pesanan = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE id_pesanan = '$id_pesanan'"));
+  if ($pesanan == null) {
+    header("Location: status_pesanan.php");
+    exit;
+  }
   $detail_pesanan = mysqli_query($koneksi, "SELECT * FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu WHERE id_pesanan = '$id_pesanan'");
 }
 
@@ -20,6 +24,7 @@ if (isset($_GET['id_pesanan'])) {
   <div class="container my-5">
     <div class="row justify-content-center">
       <div class="col-lg-8">
+        <a href="pesan.php" class="btn btn-primary mb-2"><i class="fas fa-fw fa-arrow-left"></i> Kembali</a>
         <h2 class="text-center">Status Pesanan<?php if (isset($_GET['id_pesanan'])) { echo " - ".$pesanan['nama_pemesan']; } ?></h2>
         <hr>
         <?php if (!isset($_GET['id_pesanan'])): ?>
