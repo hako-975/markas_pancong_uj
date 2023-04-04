@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 31 Mar 2023 pada 21.00
+-- Waktu pembuatan: 04 Apr 2023 pada 11.43
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.2.0
 
@@ -41,7 +41,10 @@ CREATE TABLE `detail_pesanan` (
 
 INSERT INTO `detail_pesanan` (`id_detail_pesanan`, `id_menu`, `jumlah`, `subtotal`, `id_pesanan`) VALUES
 (1, 2, 1, 20000, 1),
-(2, 4, 2, 6000, 2);
+(2, 4, 2, 6000, 2),
+(3, 2, 2, 40000, 3),
+(4, 3, 4, 40000, 3),
+(5, 4, 10, 30000, 3);
 
 -- --------------------------------------------------------
 
@@ -89,7 +92,8 @@ CREATE TABLE `pesanan` (
 
 INSERT INTO `pesanan` (`id_pesanan`, `nama_pemesan`, `no_telp_pemesan`, `alamat_pemesan`, `tanggal_pesanan`, `total_pembayaran`, `status_pesanan`, `id_user`) VALUES
 (1, 'Andri Firman Saputra', '6287808675313', 'Jl. AMD Babakan Pocis', '2023-04-01 01:33:47', 20000, 'selesai', 1),
-(2, 'Andri Firman Saputra', '6287808675313', 'Jl. AMD Babakan Pocis', '2023-04-01 01:35:10', 6000, 'selesai', 1);
+(2, 'Andri Firman Saputra', '6287808675313', 'Jl. AMD Babakan Pocis', '2023-04-01 01:35:10', 6000, 'selesai', 1),
+(3, 'Andri Firman Saputra', '6287808675313', 'Pocis', '2023-04-04 13:52:05', 110000, 'selesai', 1);
 
 -- --------------------------------------------------------
 
@@ -151,7 +155,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `detail_pesanan`
 --
 ALTER TABLE `detail_pesanan`
-  MODIFY `id_detail_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_detail_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `menu`
@@ -163,7 +167,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT untuk tabel `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
