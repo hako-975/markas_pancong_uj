@@ -63,12 +63,17 @@
                 <th>Tanggal Pesanan</th>
                 <th>Total Pembayaran</th>
                 <th>Status Pesanan</th>
+                <th>Detail Pesanan</th>
                 <th>Operator</th>
             </tr>
         </thead>
         <tbody>
             <?php $i = 1; ?>
             <?php foreach ($pesanan as $dp): ?>
+                <?php 
+                    $id_pesanan = $dp['id_pesanan'];
+                    $detail_pesanan = mysqli_query($koneksi, "SELECT * FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu WHERE id_pesanan = '$id_pesanan'");
+                 ?>
                 <tr>
                     <td><?= $i++; ?></td>
                     <td><?= $dp['nama_pemesan']; ?></td>
@@ -77,6 +82,15 @@
                     <td><?= $dp['tanggal_pesanan']; ?></td>
                     <td>Rp. <?= str_replace(",", ".", number_format($dp['total_pembayaran'])); ?></td>
                     <td><?= $dp['status_pesanan']; ?></td>
+                    <td style="min-width: 10rem">
+                        <div>
+                            <?php foreach ($detail_pesanan as $ddp): ?>
+                                <div>
+                                    • <?= $ddp['nama_menu']; ?> - <?= $ddp['jumlah']; ?>
+                                </div>
+                            <?php endforeach ?>
+                        </div>
+                    </td>
                     <td><?= $dp['nama_lengkap']; ?></td>
                 </tr>
             <?php endforeach ?>
