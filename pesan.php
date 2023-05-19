@@ -40,7 +40,10 @@
       <form>
         <h4 class="text-left text-pancong">Cari Menu</h4>
         <div class="input-group mb-3">
-          <input type="search" name="keyword" id="keyword" class="form-control" placeholder="Contoh: Pancong Cokelat" aria-label="Contoh: Pancong Cokelat" aria-describedby="button-search" value="<?php isset($_GET['keyword']) ? $_GET['keyword'] : ''; ?>">
+          <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Contoh: Pancong Cokelat" aria-label="Contoh: Pancong Cokelat" aria-describedby="button-search" value="<?php echo isset($_GET['keyword']) ? $_GET['keyword'] : ''; ?>">
+          <div class="input-group-append">
+            <button type="button" class="btn btn-pancong" onclick="clearSearch()"><i class="fas fa-fw fa-times"></i> Clear</button>
+          </div>
         </div>
       </form>
       <form method="post" action="checkout.php">
@@ -114,8 +117,14 @@
   </footer>
   <?php include 'script.php' ?>
   <script>
+    function clearSearch() {
+      $("#keyword").val("");
+      $('#menu-search').load("pesan-ajax.php?keyword=" + encodeURIComponent($("#keyword").val()));
+      return false; // Prevent form submission
+    }
+
     $(document).ready(function() {
-      
+
       $(window).keydown(function(event) {
         if( (event.keyCode == 13)) {
           event.preventDefault();
@@ -124,8 +133,10 @@
       });
 
       $("#keyword").on("keyup", function() {
-        $('#menu-search').load("pesan-ajax.php?keyword=" + $("#keyword").val());
+        $('#menu-search').load("pesan-ajax.php?keyword=" + encodeURIComponent($("#keyword").val()));
       });
+
+      
     });
   </script>
 </body>
