@@ -13,7 +13,7 @@
         exit;
     }
 
-    $id_pesanan = $_GET['id_pesanan'];
+    $kode_pesanan = $_GET['kode_pesanan'];
 
 
     if (isset($_POST['btnTambahDetailPesanan'])) {
@@ -36,16 +36,16 @@
         $subtotal = $jumlah * $harga_menu;
 
 
-        $insert_detail_pesanan = mysqli_query($koneksi, "INSERT INTO detail_pesanan (id_menu, jumlah, subtotal, id_pesanan) VALUES ('$id_menu', '$jumlah', '$subtotal', '$id_pesanan')");
+        $insert_detail_pesanan = mysqli_query($koneksi, "INSERT INTO detail_pesanan (id_menu, jumlah, subtotal, kode_pesanan) VALUES ('$id_menu', '$jumlah', '$subtotal', '$kode_pesanan')");
 
-        $total_pembayaran = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUM(subtotal) as total_pembayaran FROM detail_pesanan WHERE id_pesanan = '$id_pesanan'"))['total_pembayaran'];
+        $total_pembayaran = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUM(subtotal) as total_pembayaran FROM detail_pesanan WHERE kode_pesanan = '$kode_pesanan'"))['total_pembayaran'];
         mysqli_query($koneksi, "UPDATE pesanan SET total_pembayaran = '$total_pembayaran'");
 
         if ($insert_detail_pesanan) {
             echo "
                 <script>
                     alert('Menu Pesanan berhasil ditambahkan!')
-                    window.location='detail_pesanan.php?id_pesanan=$id_pesanan'
+                    window.location='detail_pesanan.php?kode_pesanan=$kode_pesanan'
                 </script>
             ";
             exit;
@@ -82,14 +82,14 @@
         $harga_menu = $dataMenu['harga_menu']; 
         $subtotal = $jumlah * $harga_menu;
 
-        $update_detail_pesanan = mysqli_query($koneksi, "UPDATE detail_pesanan SET id_menu = '$id_menu', jumlah = '$jumlah', subtotal = '$subtotal', id_pesanan = '$id_pesanan' WHERE id_detail_pesanan = '$id_detail_pesanan'");
-        $total_pembayaran = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUM(subtotal) as total_pembayaran FROM detail_pesanan WHERE id_pesanan = '$id_pesanan'"))['total_pembayaran'];
+        $update_detail_pesanan = mysqli_query($koneksi, "UPDATE detail_pesanan SET id_menu = '$id_menu', jumlah = '$jumlah', subtotal = '$subtotal', kode_pesanan = '$kode_pesanan' WHERE id_detail_pesanan = '$id_detail_pesanan'");
+        $total_pembayaran = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUM(subtotal) as total_pembayaran FROM detail_pesanan WHERE kode_pesanan = '$kode_pesanan'"))['total_pembayaran'];
         mysqli_query($koneksi, "UPDATE pesanan SET total_pembayaran = '$total_pembayaran'");
         if ($update_detail_pesanan) {
             echo "
                 <script>
                     alert('Menu Pesanan berhasil diubah!')
-                    window.location='detail_pesanan.php?id_pesanan=$id_pesanan'
+                    window.location='detail_pesanan.php?kode_pesanan=$kode_pesanan'
                 </script>
             ";
             exit;
@@ -106,9 +106,9 @@
         }
     }
 
-    $dataPesanan = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE id_pesanan = '$id_pesanan'"));
+    $dataPesanan = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE kode_pesanan = '$kode_pesanan'"));
 
-    $detail_pesanan = mysqli_query($koneksi, "SELECT * FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu INNER JOIN pesanan ON detail_pesanan.id_pesanan = pesanan.id_pesanan WHERE detail_pesanan.id_pesanan = '$id_pesanan'");
+    $detail_pesanan = mysqli_query($koneksi, "SELECT * FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu INNER JOIN pesanan ON detail_pesanan.kode_pesanan = pesanan.kode_pesanan WHERE detail_pesanan.kode_pesanan = '$kode_pesanan'");
     $menu = mysqli_query($koneksi, "SELECT * FROM menu");
 ?>
 
@@ -203,10 +203,10 @@
                                                         $selesaiClass = 'bg-dark';
                                                 }
                                             ?>
-                                            <a href="ubah_status.php?id_pesanan=<?= $id_pesanan; ?>&status=proses" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi proses?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $prosesClass; ?>">Proses</a>
-                                            <a href="ubah_status.php?id_pesanan=<?= $id_pesanan; ?>&status=dibuat" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi dibuat?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $dibuatClass; ?>">Dibuat</a>
-                                            <a href="ubah_status.php?id_pesanan=<?= $id_pesanan; ?>&status=perjalanan" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi perjalanan?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $perjalananClass; ?>">Perjalanan</a>
-                                            <a href="ubah_status.php?id_pesanan=<?= $id_pesanan; ?>&status=selesai" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi selesai?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $selesaiClass; ?>">Selesai</a>
+                                            <a href="ubah_status.php?kode_pesanan=<?= $kode_pesanan; ?>&status=proses" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi proses?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $prosesClass; ?>">Proses</a>
+                                            <a href="ubah_status.php?kode_pesanan=<?= $kode_pesanan; ?>&status=dibuat" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi dibuat?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $dibuatClass; ?>">Dibuat</a>
+                                            <a href="ubah_status.php?kode_pesanan=<?= $kode_pesanan; ?>&status=perjalanan" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi perjalanan?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $perjalananClass; ?>">Perjalanan</a>
+                                            <a href="ubah_status.php?kode_pesanan=<?= $kode_pesanan; ?>&status=selesai" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi selesai?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $selesaiClass; ?>">Selesai</a>
                                         </div>
                                     </div>
                                 </div>
@@ -233,7 +233,7 @@
                                                     <td class="align-middle">Rp. <?= str_replace(",", ".", number_format($dp['subtotal'])); ?></td>
                                                     <td class="text-center align-middle">
                                                         <a class="btn btn-sm btn-warning text-white m-1" data-toggle="modal" data-target="#ubahDetailPesananModal<?= $dp['id_detail_pesanan']; ?>"><i class="fas fa-fw fa-edit"></i> Ubah</a>
-                                                        <a class="btn btn-sm btn-danger text-white m-1" href="hapus_detail_pesanan.php?id_detail_pesanan=<?= $dp['id_detail_pesanan']; ?>&id_pesanan=<?= $id_pesanan; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus menu pesanan <?= $dp['nama_menu']; ?>?')"><i class="fas fa-fw fa-trash"></i> Hapus</a>
+                                                        <a class="btn btn-sm btn-danger text-white m-1" href="hapus_detail_pesanan.php?id_detail_pesanan=<?= $dp['id_detail_pesanan']; ?>&kode_pesanan=<?= $kode_pesanan; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus menu pesanan <?= $dp['nama_menu']; ?>?')"><i class="fas fa-fw fa-trash"></i> Hapus</a>
                                                         
                                                         <div class="modal fade" id="ubahDetailPesananModal<?= $dp['id_detail_pesanan']; ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="ubahPesananModalLabel<?= $dp['id_detail_pesanan']; ?>" aria-hidden="true">
                                                           <div class="modal-dialog modal-lg text-left">

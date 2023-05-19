@@ -8,16 +8,16 @@
 
     $id_user = $_SESSION['id_user'];
 
-	$id_pesanan = $_GET['id_pesanan'];
+	$kode_pesanan = $_GET['kode_pesanan'];
 	$status = $_GET['status'];
 
-	$update_status = mysqli_query($koneksi, "UPDATE pesanan SET status_pesanan = '$status', id_user = '$id_user' WHERE id_pesanan = '$id_pesanan'");
+	$update_status = mysqli_query($koneksi, "UPDATE pesanan SET status_pesanan = '$status', id_user = '$id_user' WHERE kode_pesanan = '$kode_pesanan'");
 
 	if ($update_status) {
 		echo "
             <script>
                 alert('Status Pesanan Berhasil diubah!')
-                window.location='detail_pesanan.php?id_pesanan=$id_pesanan'
+                window.location='detail_pesanan.php?kode_pesanan=$kode_pesanan'
             </script>
         ";
         exit;
@@ -27,7 +27,7 @@
 	   echo "
             <script>
                 alert('Status Pesanan Gagal diubah!')
-                window.location='detail_pesanan.php?id_pesanan=$id_pesanan'
+                window.location='detail_pesanan.php?kode_pesanan=$kode_pesanan'
             </script>
         ";
         exit;

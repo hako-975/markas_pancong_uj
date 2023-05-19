@@ -1,14 +1,16 @@
 <?php 
 require_once 'koneksi.php';
 
-if (isset($_GET['id_pesanan'])) {
-  $id_pesanan = $_GET['id_pesanan'];
-  $pesanan = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE id_pesanan = '$id_pesanan'"));
+if (isset($_GET['kode_pesanan'])) {
+  $kode_pesanan = $_GET['kode_pesanan'];
+  $pesanan = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE kode_pesanan = '$kode_pesanan'"));
+
   if ($pesanan == null) {
     header("Location: status_pesanan.php");
     exit;
   }
-  $detail_pesanan = mysqli_query($koneksi, "SELECT * FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu WHERE id_pesanan = '$id_pesanan'");
+
+  $detail_pesanan = mysqli_query($koneksi, "SELECT * FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu WHERE kode_pesanan = '$kode_pesanan'");
 }
 
 ?>
@@ -17,27 +19,42 @@ if (isset($_GET['id_pesanan'])) {
 <html lang="en" id="home">
 
 <head>
-  <title>Status Pesanan <?php if (isset($_GET['id_pesanan'])) { echo $pesanan['nama_pemesan']; } ?> - Markas Pancong UJ</title>
+  <title>Status Pesanan <?php if (isset($_GET['kode_pesanan'])) { echo $pesanan['nama_pemesan']; } ?> - Markas Pancong UJ</title>
   <?php include 'head.php' ?>
 </head>
 <body>
   <div class="container my-3">
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <a href="pesan.php" class="btn btn-primary mb-2"><i class="fas fa-fw fa-arrow-left"></i> Kembali</a>
-        <h3 class="text-center mt-3">Status Pesanan<?php if (isset($_GET['id_pesanan'])) { echo "<br>".$pesanan['nama_pemesan']; } ?></h3>
+        <div class="row justify-content-between">
+          <div class="col text-left">
+            <a href="pesan.php" class="btn btn-primary"><i class="fas fa-fw fa-arrow-left"></i> Kembali</a>
+          </div>
+        <?php if (isset($_GET['kode_pesanan'])): ?>
+          <div class="col text-right">
+            <a class="btn btn-success" target="_blank" href="cetak_status_pesanan.php?kode_pesanan=<?= $kode_pesanan; ?>"><i class="fas fa-fw fa-print"></i> Cetak</a>
+          </div>
+        <?php endif ?>
+        </div>
+        <h3 class="text-center mt-3">Status Pesanan<?php if (isset($_GET['kode_pesanan'])) { echo "<br>".$pesanan['nama_pemesan']; } ?></h3>
         <hr>
-        <?php if (!isset($_GET['id_pesanan'])): ?>
+        <?php if (!isset($_GET['kode_pesanan'])): ?>
+        
         <form class="form-inline mx-auto justify-content-center" method="GET">
           <div class="form-group mx-3 mb-2">
-            <label for="id_pesanan" class="mx-3">ID Pesanan</label>
-            <input type="text" name="id_pesanan" class="form-control" id="id_pesanan" placeholder="ID Pesanan" value="<?= isset($_SESSION['id_pesanan']) ? $_SESSION['id_pesanan'] : ''; ?>">
+            <label for="kode_pesanan" class="mx-3">Kode Pesanan</label>
+            <input type="text" name="kode_pesanan" class="form-control" id="kode_pesanan" placeholder="Kode Pesanan" value="<?= isset($_SESSION['kode_pesanan']) ? $_SESSION['kode_pesanan'] : ''; ?>">
           </div>
           <button type="submit" class="btn btn-primary mb-2"><i class="fas fa-fw fa-paper-plane"></i> Kirim</button>
         </form>
         <?php endif ?>
 
-        <?php if (isset($_GET['id_pesanan'])): ?>
+        <?php if (isset($_GET['kode_pesanan'])): ?>
+          <h5>
+            Kode Pesanan: <span id="kodePesanan"><?= $pesanan['kode_pesanan']; ?></span>
+            <sup><button class="btn p-0" onclick="copyContent()" type="button"><i class="fas fa-fw fa-copy"></i></button></sup>
+          </h5>
+          <hr>
           <div class="row">
             <div class="col">
               <table cellpadding="5">
@@ -75,13 +92,13 @@ if (isset($_GET['id_pesanan'])) {
                   <th>:</th>
                   <td>
                     <?php if ($pesanan['status_pesanan'] == 'proses'): ?>
-                      <a href="status_pesanan.php?id_pesanan=<?= $id_pesanan; ?>" class="btn btn-danger"><?= ucwords($pesanan['status_pesanan']); ?></a>
+                      <a href="status_pesanan.php?kode_pesanan=<?= $kode_pesanan; ?>" class="btn btn-danger"><?= ucwords($pesanan['status_pesanan']); ?></a>
                     <?php elseif ($pesanan['status_pesanan'] == 'dibuat'): ?>
-                      <a href="status_pesanan.php?id_pesanan=<?= $id_pesanan; ?>" class="btn btn-warning"><?= ucwords($pesanan['status_pesanan']); ?></a>
+                      <a href="status_pesanan.php?kode_pesanan=<?= $kode_pesanan; ?>" class="btn btn-warning"><?= ucwords($pesanan['status_pesanan']); ?></a>
                     <?php elseif ($pesanan['status_pesanan'] == 'perjalanan'): ?>
-                      <a href="status_pesanan.php?id_pesanan=<?= $id_pesanan; ?>" class="btn btn-success"><?= ucwords($pesanan['status_pesanan']); ?></a>
+                      <a href="status_pesanan.php?kode_pesanan=<?= $kode_pesanan; ?>" class="btn btn-success"><?= ucwords($pesanan['status_pesanan']); ?></a>
                     <?php elseif ($pesanan['status_pesanan'] == 'selesai'): ?>
-                      <a href="status_pesanan.php?id_pesanan=<?= $id_pesanan; ?>" class="btn btn-primary"><?= ucwords($pesanan['status_pesanan']); ?></a>
+                      <a href="status_pesanan.php?kode_pesanan=<?= $kode_pesanan; ?>" class="btn btn-primary"><?= ucwords($pesanan['status_pesanan']); ?></a>
                     <?php endif ?>
                   </td>
                 </tr>
@@ -125,5 +142,27 @@ if (isset($_GET['id_pesanan'])) {
     </div>
   </footer>
  <?php include 'script.php' ?>
+ <script>
+    function copyContent() {
+      var contentElement = document.getElementById("kodePesanan");
+      
+      var range = document.createRange();
+      range.selectNode(contentElement);
+      
+      var selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      
+      document.execCommand("copy");
+      
+      selection.removeAllRanges();
+
+      Swal.fire(
+        'Berhasil!',
+        'Kode Pesanan berhasil disalin!',
+        'success'
+      )
+    }
+ </script>
 </body>
 </html>

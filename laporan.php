@@ -113,8 +113,8 @@
                                     <?php $i = 1; ?>
                                     <?php foreach ($pesanan as $dp): ?>
                                         <?php 
-                                            $id_pesanan = $dp['id_pesanan'];
-                                            $detail_pesanan = mysqli_query($koneksi, "SELECT * FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu WHERE id_pesanan = '$id_pesanan'");
+                                            $kode_pesanan = $dp['kode_pesanan'];
+                                            $detail_pesanan = mysqli_query($koneksi, "SELECT * FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu WHERE kode_pesanan = '$kode_pesanan'");
                                          ?>
                                         <tr>
                                             <td><?= $i++; ?></td>

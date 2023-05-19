@@ -27,14 +27,14 @@
     if ($status_pesanan == 'semua') {
         $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan LEFT JOIN user ON pesanan.id_user = user.id_user WHERE tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru' ORDER BY tanggal_pesanan ASC");
         $omset = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT *, sum(total_pembayaran) as omset FROM pesanan WHERE tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru' ORDER BY tanggal_pesanan ASC"));
-        $menu_paling_laku = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT tanggal_pesanan, status_pesanan, detail_pesanan.id_menu, nama_menu, SUM(jumlah) as laku FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu INNER JOIN pesanan ON detail_pesanan.id_pesanan = pesanan.id_pesanan WHERE tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru' GROUP BY id_menu ORDER BY laku DESC LIMIT 1"));
+        $menu_paling_laku = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT tanggal_pesanan, status_pesanan, detail_pesanan.id_menu, nama_menu, SUM(jumlah) as laku FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu INNER JOIN pesanan ON detail_pesanan.kode_pesanan = pesanan.kode_pesanan WHERE tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru' GROUP BY id_menu ORDER BY laku DESC LIMIT 1"));
 
     }
     else
     {
         $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan LEFT JOIN user ON pesanan.id_user = user.id_user WHERE status_pesanan = '$status_pesanan' AND tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru' ORDER BY tanggal_pesanan ASC");
         $omset = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT *, sum(total_pembayaran) as omset FROM pesanan WHERE status_pesanan = '$status_pesanan' AND tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru' ORDER BY tanggal_pesanan ASC"));
-        $menu_paling_laku = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT tanggal_pesanan, status_pesanan, detail_pesanan.id_menu, nama_menu, SUM(jumlah) as laku FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu INNER JOIN pesanan ON detail_pesanan.id_pesanan = pesanan.id_pesanan WHERE status_pesanan = '$status_pesanan' AND tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru' GROUP BY id_menu ORDER BY laku DESC LIMIT 1"));
+        $menu_paling_laku = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT tanggal_pesanan, status_pesanan, detail_pesanan.id_menu, nama_menu, SUM(jumlah) as laku FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu INNER JOIN pesanan ON detail_pesanan.kode_pesanan = pesanan.kode_pesanan WHERE status_pesanan = '$status_pesanan' AND tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru' GROUP BY id_menu ORDER BY laku DESC LIMIT 1"));
 
     }
 
@@ -71,8 +71,8 @@
             <?php $i = 1; ?>
             <?php foreach ($pesanan as $dp): ?>
                 <?php 
-                    $id_pesanan = $dp['id_pesanan'];
-                    $detail_pesanan = mysqli_query($koneksi, "SELECT * FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu WHERE id_pesanan = '$id_pesanan'");
+                    $kode_pesanan = $dp['kode_pesanan'];
+                    $detail_pesanan = mysqli_query($koneksi, "SELECT * FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu WHERE kode_pesanan = '$kode_pesanan'");
                  ?>
                 <tr>
                     <td><?= $i++; ?></td>

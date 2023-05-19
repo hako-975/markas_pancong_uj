@@ -32,14 +32,14 @@ CREATE TABLE `detail_pesanan` (
   `id_menu` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `subtotal` int(11) NOT NULL,
-  `id_pesanan` int(11) DEFAULT NULL
+  `kode_pesanan` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data untuk tabel `detail_pesanan`
 --
 
-INSERT INTO `detail_pesanan` (`id_detail_pesanan`, `id_menu`, `jumlah`, `subtotal`, `id_pesanan`) VALUES
+INSERT INTO `detail_pesanan` (`id_detail_pesanan`, `id_menu`, `jumlah`, `subtotal`, `kode_pesanan`) VALUES
 (1, 2, 1, 20000, 1),
 (2, 4, 2, 6000, 2),
 (3, 2, 2, 40000, 3),
@@ -76,7 +76,7 @@ INSERT INTO `menu` (`id_menu`, `nama_menu`, `harga_menu`, `jenis_menu`, `foto_me
 --
 
 CREATE TABLE `pesanan` (
-  `id_pesanan` int(11) NOT NULL,
+  `kode_pesanan` int(11) NOT NULL,
   `nama_pemesan` varchar(50) NOT NULL,
   `no_telp_pemesan` varchar(20) NOT NULL,
   `alamat_pemesan` text NOT NULL,
@@ -90,7 +90,7 @@ CREATE TABLE `pesanan` (
 -- Dumping data untuk tabel `pesanan`
 --
 
-INSERT INTO `pesanan` (`id_pesanan`, `nama_pemesan`, `no_telp_pemesan`, `alamat_pemesan`, `tanggal_pesanan`, `total_pembayaran`, `status_pesanan`, `id_user`) VALUES
+INSERT INTO `pesanan` (`kode_pesanan`, `nama_pemesan`, `no_telp_pemesan`, `alamat_pemesan`, `tanggal_pesanan`, `total_pembayaran`, `status_pesanan`, `id_user`) VALUES
 (1, 'Andri Firman Saputra', '6287808675313', 'Jl. AMD Babakan Pocis', '2023-04-01 01:33:47', 20000, 'selesai', 1),
 (2, 'Andri Firman Saputra', '6287808675313', 'Jl. AMD Babakan Pocis', '2023-04-01 01:35:10', 6000, 'selesai', 1),
 (3, 'Andri Firman Saputra', '6287808675313', 'Pocis', '2023-04-04 13:52:05', 110000, 'selesai', 1);
@@ -125,7 +125,7 @@ INSERT INTO `user` (`id_user`, `username`, `password`, `nama_lengkap`) VALUES
 ALTER TABLE `detail_pesanan`
   ADD PRIMARY KEY (`id_detail_pesanan`),
   ADD KEY `id_menu` (`id_menu`),
-  ADD KEY `id_pesanan` (`id_pesanan`);
+  ADD KEY `kode_pesanan` (`kode_pesanan`);
 
 --
 -- Indeks untuk tabel `menu`
@@ -137,7 +137,7 @@ ALTER TABLE `menu`
 -- Indeks untuk tabel `pesanan`
 --
 ALTER TABLE `pesanan`
-  ADD PRIMARY KEY (`id_pesanan`),
+  ADD PRIMARY KEY (`kode_pesanan`),
   ADD KEY `id_user` (`id_user`);
 
 --
@@ -167,7 +167,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT untuk tabel `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `kode_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
@@ -184,7 +184,7 @@ ALTER TABLE `user`
 --
 ALTER TABLE `detail_pesanan`
   ADD CONSTRAINT `detail_pesanan_ibfk_1` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id_menu`),
-  ADD CONSTRAINT `detail_pesanan_ibfk_2` FOREIGN KEY (`id_pesanan`) REFERENCES `pesanan` (`id_pesanan`);
+  ADD CONSTRAINT `detail_pesanan_ibfk_2` FOREIGN KEY (`kode_pesanan`) REFERENCES `pesanan` (`kode_pesanan`);
 
 --
 -- Ketidakleluasaan untuk tabel `pesanan`

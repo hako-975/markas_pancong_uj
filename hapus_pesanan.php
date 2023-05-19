@@ -6,11 +6,11 @@
 	    exit;
 	}
 
-	$id_pesanan = $_GET['id_pesanan'];
+	$kode_pesanan = $_GET['kode_pesanan'];
 
 
-	$delete_detail_pesanan = mysqli_query($koneksi, "DELETE FROM detail_pesanan WHERE detail_pesanan.id_pesanan = '$id_pesanan'");
-	$delete_pesanan = mysqli_query($koneksi, "DELETE FROM pesanan WHERE id_pesanan = '$id_pesanan'");
+	$delete_detail_pesanan = mysqli_query($koneksi, "DELETE FROM detail_pesanan WHERE detail_pesanan.kode_pesanan = '$kode_pesanan'");
+	$delete_pesanan = mysqli_query($koneksi, "DELETE FROM pesanan WHERE kode_pesanan = '$kode_pesanan'");
 
 	if ($delete_pesanan) {
 		echo "

@@ -12,28 +12,27 @@ if (isset($_POST['btnPesan'])) {
   $alamat_pemesan = htmlspecialchars($_POST['alamat_pemesan']);
   $total_pembayaran = htmlspecialchars($_POST['total_pembayaran']);
   $tanggal_pesanan = date('Y-m-d H:i:s');
+  $kode_pesanan = $no_telp_pemesan . '-' . kodePesananUnik();
 
-  $insert_pesanan = mysqli_query($koneksi, "INSERT INTO pesanan (nama_pemesan, no_telp_pemesan, alamat_pemesan, tanggal_pesanan, total_pembayaran, status_pesanan) VALUES ('$nama_pemesan', '$no_telp_pemesan', '$alamat_pemesan', '$tanggal_pesanan', '$total_pembayaran', 'proses')");
+  $insert_pesanan = mysqli_query($koneksi, "INSERT INTO pesanan (kode_pesanan, nama_pemesan, no_telp_pemesan, alamat_pemesan, tanggal_pesanan, total_pembayaran, status_pesanan) VALUES ('$kode_pesanan', '$nama_pemesan', '$no_telp_pemesan', '$alamat_pemesan', '$tanggal_pesanan', '$total_pembayaran', 'proses')");
 
-  $id_pesanan = mysqli_insert_id($koneksi);
   foreach ($menu_items as $mi) {
     $id_menu_mi = $mi['id_menu']; 
     $jml_menu_mi = $mi['jml_menu'];
     $data_menu = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM menu WHERE id_menu = '$id_menu_mi'"));
       if ($jml_menu_mi > 0) {
         $subtotal = $data_menu['harga_menu'] * $mi['jml_menu'];
-        $insert_detail_pesanan = mysqli_query($koneksi, "INSERT INTO detail_pesanan VALUES('', '$id_menu_mi', '$jml_menu_mi', '$subtotal', '$id_pesanan')");
+        $insert_detail_pesanan = mysqli_query($koneksi, "INSERT INTO detail_pesanan VALUES('', '$id_menu_mi', '$jml_menu_mi', '$subtotal', '$kode_pesanan')");
       }
   }
 
   if ($insert_detail_pesanan) {
-    $_SESSION['id_pesanan'] = $id_pesanan;
-    echo "
-      <script>
-        alert('Pesanan Anda sudah diterima!');
-        document.location.href='status_pesanan.php?id_pesanan=$id_pesanan';
-      </script>
-    ";
+    $_SESSION['kode_pesanan'] = $kode_pesanan;
+    $nama_depan_pemesan = explode(" ", $nama_pemesan)[0];
+    setAlert("Berhasil!", "Pesanan kak " . $nama_depan_pemesan . " lagi disiapin!", "success");
+    header("Location: status_pesanan.php?kode_pesanan=$kode_pesanan");
+    exit;
+
   }
 }
 
@@ -60,16 +59,16 @@ for ($i=0; $i < count($id_menu); $i++) {
 
 $all_zero = true;
 foreach ($menu_items as $item) {
-  if ($item['jml_menu'] != null) {
+  if ($item['jml_menu'] != 0) {
     $all_zero = false;
     break;
   }
 }
 
 if ($all_zero) {
+  setAlert("Perhatian!", "Pilih setidaknya satu menu!", "error");
   echo "
     <script>
-      alert('Pilih setidaknya satu menu!')
       window.history.back();
     </script>
   ";
