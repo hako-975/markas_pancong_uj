@@ -296,6 +296,7 @@
                     <input type="number" class="form-control" id="harga_menu" name="harga_menu" required value="<?= (isset($_POST['harga_menu']) ? ($_POST['harga_menu'] == '' ? '' : $_POST['harga_menu']) : ""); ?>">
                 </div>
                 <div class="form-group">
+                    <label for="jenis_menu">Jenis Menu <sup class="text-danger">*</sup></label>
                     <select name="jenis_menu" id="jenis_menu" class="custom-select">
                         <option value="makanan"><?= ucwords('makanan'); ?></option>
                         <option value="minuman"><?= ucwords('minuman'); ?></option>

@@ -85,47 +85,49 @@ if ($all_zero) {
   <?php include 'head.php' ?>
 </head>
 <body>
-  <div class="container my-5">
+  <div class="container-fluid my-3">
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <a href="pesan.php" class="btn btn-primary mb-2"><i class="fas fa-fw fa-arrow-left"></i> Kembali</a>
+        <button type="button" onclick="return window.history.back()" class="btn btn-primary mb-3"><i class="fas fa-fw fa-arrow-left"></i> Kembali</button>
         <h2 class="text-center">Checkout</h2>
         <hr>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Nama Menu</th>
-              <th>Jenis Menu</th>
-              <th>Harga Menu</th>
-              <th>Jumlah Menu</th>
-              <th>Subtotal</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php $total_pembayaran = 0; ?>
-            <?php foreach ($menu_items as $mi): ?>
-              <?php 
-                $id_menu_mi = $mi['id_menu']; 
-                $data_menu = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM menu WHERE id_menu = '$id_menu_mi'"));
-                if ($mi['jml_menu'] > 0) :
-                  $subtotal = $data_menu['harga_menu'] * $mi['jml_menu'];
-                  $total_pembayaran += $subtotal;
-              ?>
+        <div class="table-responsive">
+          <table class="table table-bordered font-size-checkout">
+            <thead>
               <tr>
-                <td><?= $data_menu['nama_menu']; ?></td>
-                <td><?= $data_menu['jenis_menu']; ?></td>
-                <td>Rp. <?= str_replace(",", ".", number_format($data_menu['harga_menu'])); ?></td>
-                <td><?= $mi['jml_menu']; ?></td>
-                <td class="text-right">Rp. <?= str_replace(",", ".", number_format($subtotal)); ?></td>
+                <th>Nama Menu</th>
+                <th>Jenis Menu</th>
+                <th>Harga Menu</th>
+                <th>Jumlah Menu</th>
+                <th>Subtotal</th>
               </tr>
-              <?php endif ?>
-            <?php endforeach ?>
-            <tr>
-              <th colspan="4">Total</th>
-              <th class="text-right">Rp. <?= str_replace(",", ".", number_format($total_pembayaran)); ?></th>
-            </tr>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <?php $total_pembayaran = 0; ?>
+              <?php foreach ($menu_items as $mi): ?>
+                <?php 
+                  $id_menu_mi = $mi['id_menu']; 
+                  $data_menu = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM menu WHERE id_menu = '$id_menu_mi'"));
+                  if ($mi['jml_menu'] > 0) :
+                    $subtotal = $data_menu['harga_menu'] * $mi['jml_menu'];
+                    $total_pembayaran += $subtotal;
+                ?>
+                <tr>
+                  <td><?= $data_menu['nama_menu']; ?></td>
+                  <td><?= $data_menu['jenis_menu']; ?></td>
+                  <td><?= str_replace(",", ".", number_format($data_menu['harga_menu'])); ?></td>
+                  <td><?= $mi['jml_menu']; ?></td>
+                  <td class="text-right"><?= str_replace(",", ".", number_format($subtotal)); ?></td>
+                </tr>
+                <?php endif ?>
+              <?php endforeach ?>
+              <tr>
+                <th colspan="4">Total</th>
+                <th class="text-right"><?= str_replace(",", ".", number_format($total_pembayaran)); ?></th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <h3>Data Penerima</h3>
         <form method="post">
           <input type="hidden" name="menu_items" value="<?= htmlspecialchars(serialize($menu_items)); ?>">
@@ -139,7 +141,7 @@ if ($all_zero) {
             <input type="number" class="form-control" id="no_telp_pemesan" name="no_telp_pemesan" required>
           </div>
           <div class="form-group">
-            <label for="alamat_pemesan">Alamat Pemesan</label>
+            <label for="alamat_pemesan">Lokasi Pengantaran</label>
             <textarea class="form-control" id="alamat_pemesan" name="alamat_pemesan" required></textarea>
           </div>
           <div class="form-group text-right">
@@ -151,9 +153,9 @@ if ($all_zero) {
   </div>
   <footer class="sticky-footer bg-white">
     <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Markas Pancong UJ 2023</span>
-        </div>
+      <div class="copyright text-center my-auto">
+        <span>Copyright &copy; Markas Pancong UJ 2023</span>
+      </div>
     </div>
   </footer>
  <?php include 'script.php' ?>

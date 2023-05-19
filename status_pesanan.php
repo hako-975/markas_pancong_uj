@@ -21,11 +21,11 @@ if (isset($_GET['id_pesanan'])) {
   <?php include 'head.php' ?>
 </head>
 <body>
-  <div class="container my-5">
+  <div class="container my-3">
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <a href="pesan.php" class="btn btn-primary mb-2"><i class="fas fa-fw fa-arrow-left"></i> Kembali</a>
-        <h2 class="text-center">Status Pesanan<?php if (isset($_GET['id_pesanan'])) { echo " - ".$pesanan['nama_pemesan']; } ?></h2>
+        <h3 class="text-center mt-3">Status Pesanan<?php if (isset($_GET['id_pesanan'])) { echo "<br>".$pesanan['nama_pemesan']; } ?></h3>
         <hr>
         <?php if (!isset($_GET['id_pesanan'])): ?>
         <form class="form-inline mx-auto justify-content-center" method="GET">
@@ -75,21 +75,21 @@ if (isset($_GET['id_pesanan'])) {
                   <th>:</th>
                   <td>
                     <?php if ($pesanan['status_pesanan'] == 'proses'): ?>
-                      <span class="btn btn-danger"><?= ucwords($pesanan['status_pesanan']); ?></span>
+                      <a href="status_pesanan.php?id_pesanan=<?= $id_pesanan; ?>" class="btn btn-danger"><?= ucwords($pesanan['status_pesanan']); ?></a>
                     <?php elseif ($pesanan['status_pesanan'] == 'dibuat'): ?>
-                      <span class="btn btn-warning"><?= ucwords($pesanan['status_pesanan']); ?></span>
+                      <a href="status_pesanan.php?id_pesanan=<?= $id_pesanan; ?>" class="btn btn-warning"><?= ucwords($pesanan['status_pesanan']); ?></a>
                     <?php elseif ($pesanan['status_pesanan'] == 'perjalanan'): ?>
-                      <span class="btn btn-success"><?= ucwords($pesanan['status_pesanan']); ?></span>
+                      <a href="status_pesanan.php?id_pesanan=<?= $id_pesanan; ?>" class="btn btn-success"><?= ucwords($pesanan['status_pesanan']); ?></a>
                     <?php elseif ($pesanan['status_pesanan'] == 'selesai'): ?>
-                      <span class="btn btn-primary"><?= ucwords($pesanan['status_pesanan']); ?></span>
+                      <a href="status_pesanan.php?id_pesanan=<?= $id_pesanan; ?>" class="btn btn-primary"><?= ucwords($pesanan['status_pesanan']); ?></a>
                     <?php endif ?>
                   </td>
                 </tr>
               </table>
-              </div>
+            </div>
           </div>
-          <div class="table-responsive">
-            <table class="table table-bordered">
+          <div class="table-responsive mt-3">
+            <table class="table table-bordered font-size-checkout">
               <thead>
                 <tr>
                   <th>Nama Menu</th>
@@ -105,9 +105,9 @@ if (isset($_GET['id_pesanan'])) {
                   <tr>
                     <td><?= $dp['nama_menu']; ?></td>
                     <td><?= $dp['jenis_menu']; ?></td>
-                    <td>Rp. <?= str_replace(",", ".", number_format($dp['harga_menu'])); ?></td>
+                    <td><?= str_replace(",", ".", number_format($dp['harga_menu'])); ?></td>
                     <td><?= $dp['jumlah']; ?></td>
-                    <td class="text-right">Rp. <?= str_replace(",", ".", number_format($dp['subtotal'])); ?></td>
+                    <td class="text-right"><?= str_replace(",", ".", number_format($dp['subtotal'])); ?></td>
                   </tr>
                 <?php endforeach ?>
               </tbody>

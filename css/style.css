@@ -43,3 +43,79 @@ html {
     bottom: 50px;
     right: 50px;
 }
+
+.bg-black {
+    background-color: #000!important;
+}
+
+.btn-pancong {
+    color: #000!important;
+    background-color: #F8B211!important;
+}
+
+.text-pancong {
+    color: #F8B211!important;
+    font-weight: bold!important;
+}
+
+.navbar-brand span {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 24px;
+  margin-left: 10px;
+  color: #F8B211!important;
+  font-weight: bold;
+}
+
+.navbar-brand img {
+    width: 75px;
+}
+
+@media(max-width: 768px) {
+    .navbar-brand span {
+        font-size: 18px;
+    }
+
+    .navbar-brand img {
+        width: 65px;
+    }
+}
+
+.border-pancong {
+    border-color: #F8B211!important;
+}
+
+.navbar-toggler {
+    color: #F8B211!important;
+    border-color: #F8B211!important;
+}
+
+.card-image-container {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.card-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.navbar-toggler-icon {
+    color: #F8B211!important;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(248, 178, 17, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E")!important;
+}
+
+.font-size-checkout {
+    font-size: 20px;
+}
+
+
+@media(max-width: 576px) {
+    .font-size-checkout {
+        font-size: 10px;
+    }
+}
