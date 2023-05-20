@@ -8,7 +8,10 @@
         $data = mysqli_query($koneksi, "SELECT * FROM user WHERE username = '$username'");
         if ($dataUser = mysqli_fetch_assoc($data)) {
             if (password_verify($password, $dataUser['password'])) {
-                $_SESSION['id_user'] = $dataUser['id_user'];
+                $id_user = $dataUser['id_user'];
+                $tgl_riwayat = date('Y-m-d H:i:s');
+                mysqli_query($koneksi, "INSERT INTO riwayat VALUES ('', 'User Berhasil login!', '$tgl_riwayat', '$id_user')");
+                $_SESSION['id_user'] = $id_user;
                 $_SESSION['username'] = $dataUser['username'];
                 header("Location:dashboard.php");
                 exit;

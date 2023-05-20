@@ -12,6 +12,9 @@
         $nama_lengkap = $_POST['nama_lengkap'];
         $update_profile = mysqli_query($koneksi, "UPDATE user SET username = '$username', nama_lengkap = '$nama_lengkap' WHERE id_user = '$id_user'");
         if ($update_profile) {
+            $tgl_riwayat = date('Y-m-d H:i:s');
+            mysqli_query($koneksi, "INSERT INTO riwayat VALUES ('', 'Profile berhasil diubah!', '$tgl_riwayat', '$id_user')");
+
             setAlert("Berhasil!", "Profile berhasil diubah!", "success");
 
             header("Location: profile.php");

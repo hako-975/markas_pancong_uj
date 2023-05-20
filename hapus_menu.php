@@ -5,6 +5,8 @@
 	    header("Location: login.php");
 	    exit;
 	}
+	
+	$id_user = $_SESSION['id_user'];
 
 	$id_menu = $_GET['id_menu'];
 
@@ -18,6 +20,10 @@
 	$delete_menu = mysqli_query($koneksi, "DELETE FROM menu WHERE id_menu = '$id_menu'");
 
 	if ($delete_menu) {
+        $tgl_riwayat = date('Y-m-d H:i:s');
+		
+        mysqli_query($koneksi, "INSERT INTO riwayat VALUES ('', 'Menu Berhasil dihapus!', '$tgl_riwayat', '$id_user')");
+
 		setAlert("Berhasil!", "Menu Berhasil dihapus!", "success");
 		header("Location: menu.php");
         exit;

@@ -44,6 +44,9 @@
         $insert_menu = mysqli_query($koneksi, "INSERT INTO menu (nama_menu, harga_menu, jenis_menu, foto_menu) VALUES ('$nama_menu', '$harga_menu', '$jenis_menu', '$foto_menu')");
 
         if ($insert_menu) {
+            $tgl_riwayat = date('Y-m-d H:i:s');
+            mysqli_query($koneksi, "INSERT INTO riwayat VALUES ('', 'Menu Berhasil ditambahkan!', '$tgl_riwayat', '$id_user')");
+            
             setAlert("Berhasil!", "Menu Berhasil ditambahkan!", "success");
             header("Location: menu.php");
             exit;

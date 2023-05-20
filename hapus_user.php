@@ -18,6 +18,10 @@
 	$delete_user = mysqli_query($koneksi, "DELETE FROM user WHERE id_user = '$id_user'");
 
 	if ($delete_user) {
+        $tgl_riwayat = date('Y-m-d H:i:s');
+		
+        mysqli_query($koneksi, "INSERT INTO riwayat VALUES ('', 'User Berhasil dihapus!', '$tgl_riwayat', '$id_user')");
+		
         setAlert("Berhasil!", "User Berhasil dihapus!", "success");
         header("Location: user.php");
         exit;

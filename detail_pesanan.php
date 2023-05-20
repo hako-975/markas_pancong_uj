@@ -42,6 +42,10 @@
         mysqli_query($koneksi, "UPDATE pesanan SET total_pembayaran = '$total_pembayaran'");
 
         if ($insert_detail_pesanan) {
+            $tgl_riwayat = date('Y-m-d H:i:s');
+            
+            mysqli_query($koneksi, "INSERT INTO riwayat VALUES ('', 'Menu Pesanan berhasil ditambahkan!', '$tgl_riwayat', '$id_user')");
+            
             setAlert("Berhasil!", "Menu Pesanan berhasil ditambahkan!", "success");
             header("Location: detail_pesanan.php?kode_pesanan=$kode_pesanan");
             exit;

@@ -17,7 +17,7 @@
         $nama_pemesan = htmlspecialchars($_POST['nama_pemesan']);
         $no_telp_pemesan = htmlspecialchars($_POST['no_telp_pemesan']);
         $alamat_pemesan = htmlspecialchars($_POST['alamat_pemesan']);
-        $tanggal_pesanan = date("Y-m-d H:i:s");
+        $tanggal_pesanan = date("Y-m-d H:i:s:s");
         $status_pesanan = 'proses';
 
         $kode_pesanan = $no_telp_pemesan . '-' . kodePesananUnik();
@@ -25,6 +25,9 @@
         $insert_pesanan = mysqli_query($koneksi, "INSERT INTO pesanan (kode_pesanan, nama_pemesan, no_telp_pemesan, alamat_pemesan, tanggal_pesanan, status_pesanan, id_user) VALUES ('$kode_pesanan', '$nama_pemesan', '$no_telp_pemesan', '$alamat_pemesan', '$tanggal_pesanan', '$status_pesanan', '$id_user')");
 
         if ($insert_pesanan) {
+            $tgl_riwayat = date('Y-m-d H:i:s');
+            mysqli_query($koneksi, "INSERT INTO riwayat VALUES ('', 'Pesanan berhasil ditambahkan!', '$tgl_riwayat', '$id_user')");
+            
             setAlert("Berhasil!", "Pesanan berhasil ditambahkan!", "success");
             header("Location: detail_pesanan.php?kode_pesanan=$kode_pesanan");
             exit;

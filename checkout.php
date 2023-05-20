@@ -11,7 +11,7 @@ if (isset($_POST['btnPesan'])) {
   }
   $alamat_pemesan = htmlspecialchars($_POST['alamat_pemesan']);
   $total_pembayaran = htmlspecialchars($_POST['total_pembayaran']);
-  $tanggal_pesanan = date('Y-m-d H:i:s');
+  $tanggal_pesanan = date('Y-m-d H:i:s:s');
   $kode_pesanan = $no_telp_pemesan . '-' . kodePesananUnik();
 
   $insert_pesanan = mysqli_query($koneksi, "INSERT INTO pesanan (kode_pesanan, nama_pemesan, no_telp_pemesan, alamat_pemesan, tanggal_pesanan, total_pembayaran, status_pesanan) VALUES ('$kode_pesanan', '$nama_pemesan', '$no_telp_pemesan', '$alamat_pemesan', '$tanggal_pesanan', '$total_pembayaran', 'proses')");

@@ -6,6 +6,10 @@
     }
 
     $id_user = $_SESSION['id_user'];
+    $tgl_riwayat = date('Y-m-d H:i:s');
+    
+    mysqli_query($koneksi, "INSERT INTO riwayat VALUES ('', 'Mencetak Laporan!', '$tgl_riwayat', '$id_user')");
+
     
     if (!$dataUser = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM user WHERE id_user = '$id_user'"))) {
         header("Location: logout.php");

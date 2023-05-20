@@ -21,6 +21,9 @@
                 $password_baru_hash = password_hash($password_baru, PASSWORD_DEFAULT);
                 $update_password = mysqli_query($koneksi, "UPDATE user SET password = '$password_baru_hash' WHERE id_user = '$id_user'");
                 if ($update_password) {
+                    $tgl_riwayat = date('Y-m-d H:i:s');
+                    mysqli_query($koneksi, "INSERT INTO riwayat VALUES ('', 'Password berhasil diganti!', '$tgl_riwayat', '$id_user')");
+                    
                     setAlert("Berhasil!", "Password berhasil diganti!", "success");
                     header("Location: profile.php");
                     exit;

@@ -47,6 +47,9 @@
         $insert_user = mysqli_query($koneksi, "INSERT INTO user (username, nama_lengkap, password) VALUES ('$username', '$nama_lengkap', '$password_hash')");
 
         if ($insert_user) {
+            $tgl_riwayat = date('Y-m-d H:i:s');
+            mysqli_query($koneksi, "INSERT INTO riwayat VALUES ('', 'User berhasil ditambahkan!', '$tgl_riwayat', '$id_user')");
+            
             setAlert("Berhasil!", "User berhasil ditambahkan!", "success");
             header("location: user.php");
             exit;

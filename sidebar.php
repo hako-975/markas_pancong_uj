@@ -50,6 +50,12 @@
             <i class="fas fa-fw fa-file-alt"></i>
             <span>Laporan</span></a>
     </li>
+    <hr class="sidebar-divider my-0">
+    <li class="nav-item <?= (strpos($_SERVER['REQUEST_URI'], "/markas_pancong_uj/riwayat.php") === 0)? 'btn-pancong active' : ''; ?>">
+        <a class="nav-link" href="riwayat.php">
+            <i class="fas fa-fw fa-history"></i>
+            <span>Riwayat</span></a>
+    </li>
     <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Sidebar Toggler (Sidebar) -->
