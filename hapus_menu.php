@@ -18,21 +18,13 @@
 	$delete_menu = mysqli_query($koneksi, "DELETE FROM menu WHERE id_menu = '$id_menu'");
 
 	if ($delete_menu) {
-		echo "
-            <script>
-                alert('Menu Berhasil dihapus!')
-                window.location='menu.php'
-            </script>
-        ";
+		setAlert("Berhasil!", "Menu Berhasil dihapus!", "success");
+		header("Location: menu.php");
         exit;
 	} 
 	else 
 	{
-	   echo "
-            <script>
-                alert('Menu Gagal dihapus!')
-                window.location='menu.php'
-            </script>
-        ";
+		setAlert("Perhatian!", "Menu Gagal dihapus!", "error");
+		header("Location: menu.php");
         exit;
 	}

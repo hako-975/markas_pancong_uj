@@ -14,21 +14,13 @@
 	$update_status = mysqli_query($koneksi, "UPDATE pesanan SET status_pesanan = '$status', id_user = '$id_user' WHERE kode_pesanan = '$kode_pesanan'");
 
 	if ($update_status) {
-		echo "
-            <script>
-                alert('Status Pesanan Berhasil diubah!')
-                window.location='detail_pesanan.php?kode_pesanan=$kode_pesanan'
-            </script>
-        ";
+		setAlert("Berhasil!", "Status Pesanan Berhasil diubah!", "success");
+		header("Location: detail_pesanan.php?kode_pesanan=$kode_pesanan");
         exit;
 	} 
 	else 
 	{
-	   echo "
-            <script>
-                alert('Status Pesanan Gagal diubah!')
-                window.location='detail_pesanan.php?kode_pesanan=$kode_pesanan'
-            </script>
-        ";
+		setAlert("Perhatian!", "Status Pesanan Gagal diubah!", "error");
+		header("Location: detail_pesanan.php?kode_pesanan=$kode_pesanan");
         exit;
 	}

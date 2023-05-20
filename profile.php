@@ -12,19 +12,16 @@
         $nama_lengkap = $_POST['nama_lengkap'];
         $update_profile = mysqli_query($koneksi, "UPDATE user SET username = '$username', nama_lengkap = '$nama_lengkap' WHERE id_user = '$id_user'");
         if ($update_profile) {
-            echo "
-                <script>
-                    alert('Profile berhasil diubah!')
-                    window.location='profile.php'
-                </script>
-            ";
+            setAlert("Berhasil!", "Profile berhasil diubah!", "success");
+
+            header("Location: profile.php");
             exit;
         }
         else
         {
+            setAlert("Perhatian!", "Profile gagal diubah!", "error");
             echo "
                 <script>
-                    alert('Profile gagal diubah!')
                     window.history.back();
                 </script>
             ";

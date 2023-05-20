@@ -13,21 +13,13 @@
 	$delete_pesanan = mysqli_query($koneksi, "DELETE FROM pesanan WHERE kode_pesanan = '$kode_pesanan'");
 
 	if ($delete_pesanan) {
-		echo "
-            <script>
-                alert('Pesanan Berhasil dihapus!')
-                window.location='pesanan.php'
-            </script>
-        ";
+		setAlert("Berhasil!", "Pesanan Berhasil dihapus!", "success");
+		header("Location: pesanan.php");
         exit;
 	} 
 	else 
 	{
-	   echo "
-            <script>
-                alert('Pesanan Gagal dihapus!')
-                window.location='pesanan.php'
-            </script>
-        ";
+		setAlert("Perhatian!", "Pesanan Gagal dihapus!", "error");
+		header("Location: pesanan.php");
         exit;
 	}

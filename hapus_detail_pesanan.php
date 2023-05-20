@@ -15,21 +15,13 @@
         mysqli_query($koneksi, "UPDATE pesanan SET total_pembayaran = '$total_pembayaran'");
 
 	if ($delete_detail_pesanan) {
-		echo "
-            <script>
-                alert('Menu Pesanan Berhasil dihapus!')
-                window.location='detail_pesanan.php?kode_pesanan=$kode_pesanan'
-            </script>
-        ";
+    	setAlert("Berhasil!", "Menu Pesanan Berhasil dihapus!", "success");
+		header("Location: detail_pesanan.php?kode_pesanan=$kode_pesanan");
         exit;
 	} 
 	else 
 	{
-	   echo "
-            <script>
-                alert('Menu Pesanan Gagal dihapus!')
-                window.location='detail_pesanan.php?kode_pesanan=$kode_pesanan'
-            </script>
-        ";
+       	setAlert("Perhatian!", "Menu Pesanan Gagal dihapus!", "error");
+		header("Location: detail_pesanan.php?kode_pesanan=$kode_pesanan");
         exit;
 	}

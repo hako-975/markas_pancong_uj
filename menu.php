@@ -28,9 +28,9 @@
             
             if(!in_array($extension_lower, $acc_extension))
             {
+                setAlert("Perhatian!", "File yang di upload bukan gambar!", "error");
                 echo "
                     <script>
-                        alert('File yang di upload bukan gambar!')
                         window.history.back();
                     </script>
                 ";
@@ -44,19 +44,15 @@
         $insert_menu = mysqli_query($koneksi, "INSERT INTO menu (nama_menu, harga_menu, jenis_menu, foto_menu) VALUES ('$nama_menu', '$harga_menu', '$jenis_menu', '$foto_menu')");
 
         if ($insert_menu) {
-            echo "
-                <script>
-                    alert('Menu berhasil ditambahkan!')
-                    window.location='menu.php'
-                </script>
-            ";
+            setAlert("Berhasil!", "Menu Berhasil ditambahkan!", "success");
+            header("Location: menu.php");
             exit;
         }
         else
         {
+            setAlert("Perhatian!", "Menu Gagal ditambahkan!", "error");
             echo "
                 <script>
-                    alert('Menu Gagal ditambahkan!')
                     window.history.back();
                 </script>
             ";
@@ -81,9 +77,9 @@
             $file_tmp = $_FILES['foto_menu']['tmp_name'];     
             if(!in_array($extension_lower, $acc_extension))
             {
+                setAlert("Perhatian!", "File yang di upload bukan gambar!", "error");
                 echo "
                     <script>
-                        alert('File yang di upload bukan gambar!')
                         window.history.back();
                     </script>
                 ";
@@ -104,19 +100,15 @@
         $update_menu = mysqli_query($koneksi, "UPDATE menu SET nama_menu = '$nama_menu', harga_menu = '$harga_menu', jenis_menu = '$jenis_menu', foto_menu = '$foto_menu' WHERE id_menu = '$id_menu'");
 
         if ($update_menu) {
-            echo "
-                <script>
-                    alert('Menu berhasil diubah!')
-                    window.location='menu.php'
-                </script>
-            ";
+            setAlert("Berhasil!", "Menu Berhasil diubah!", "success");
+            header("Location: menu.php");
             exit;
         }
         else
         {
+            setAlert("Perhatian!", "Menu Gagal diubah!", "error");
             echo "
                 <script>
-                    alert('Menu Gagal diubah!')
                     window.history.back();
                 </script>
             ";

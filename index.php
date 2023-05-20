@@ -101,6 +101,17 @@
   </section>
   <footer class="sticky-footer bg-black">
     <div class="container my-auto">
+      <div class="row mt-3 mb-5 text-pancong justify-content-between">
+        <div class="col-lg-3 col-md-6">
+          <h5>Markas Pancong UJ</h5>
+          <p>Kantin Cemara No.49 <br> Depan kampus Universitas Pamulang Victor</p>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5>Sosial Media</h5>
+          <a class="btn btn-warning btn-pancong p-2" href="https://www.youtube.com/@mapaufamily600" target="_blank"><i class="fab fa-fw fa-youtube"></i></a>
+          <a class="btn btn-warning btn-pancong p-2" href="https://www.instagram.com/markaspanconguj/" target="_blank"><i class="fab fa-fw fa-instagram"></i></a>
+        </div>
+      </div>
       <div class="copyright text-center my-auto text-pancong">
         <span>Copyright &copy; Markas Pancong UJ 2023</span>
       </div>

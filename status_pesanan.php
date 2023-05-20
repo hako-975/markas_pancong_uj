@@ -6,6 +6,7 @@ if (isset($_GET['kode_pesanan'])) {
   $pesanan = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE kode_pesanan = '$kode_pesanan'"));
 
   if ($pesanan == null) {
+    setAlert("Perhatian!", "Kode Pesanan yang Anda masukkan tidak ditemukan!", "error");
     header("Location: status_pesanan.php");
     exit;
   }
@@ -39,7 +40,6 @@ if (isset($_GET['kode_pesanan'])) {
         <h3 class="text-center mt-3">Status Pesanan<?php if (isset($_GET['kode_pesanan'])) { echo "<br>".$pesanan['nama_pemesan']; } ?></h3>
         <hr>
         <?php if (!isset($_GET['kode_pesanan'])): ?>
-        
         <form class="form-inline mx-auto justify-content-center" method="GET">
           <div class="form-group mx-3 mb-2">
             <label for="kode_pesanan" class="mx-3">Kode Pesanan</label>
@@ -92,19 +92,20 @@ if (isset($_GET['kode_pesanan'])) {
                   <th>:</th>
                   <td>
                     <?php if ($pesanan['status_pesanan'] == 'proses'): ?>
-                      <a href="status_pesanan.php?kode_pesanan=<?= $kode_pesanan; ?>" class="btn btn-danger"><?= ucwords($pesanan['status_pesanan']); ?></a>
+                      <a data-toggle="modal" data-target="#statusPesananModal" href="status_pesanan.php?kode_pesanan=<?= $kode_pesanan; ?>" class="btn btn-danger"><?= ucwords($pesanan['status_pesanan']); ?></a>
                     <?php elseif ($pesanan['status_pesanan'] == 'dibuat'): ?>
-                      <a href="status_pesanan.php?kode_pesanan=<?= $kode_pesanan; ?>" class="btn btn-warning"><?= ucwords($pesanan['status_pesanan']); ?></a>
+                      <a data-toggle="modal" data-target="#statusPesananModal" href="status_pesanan.php?kode_pesanan=<?= $kode_pesanan; ?>" class="btn btn-warning"><?= ucwords($pesanan['status_pesanan']); ?></a>
                     <?php elseif ($pesanan['status_pesanan'] == 'perjalanan'): ?>
-                      <a href="status_pesanan.php?kode_pesanan=<?= $kode_pesanan; ?>" class="btn btn-success"><?= ucwords($pesanan['status_pesanan']); ?></a>
+                      <a data-toggle="modal" data-target="#statusPesananModal" href="status_pesanan.php?kode_pesanan=<?= $kode_pesanan; ?>" class="btn btn-success"><?= ucwords($pesanan['status_pesanan']); ?></a>
                     <?php elseif ($pesanan['status_pesanan'] == 'selesai'): ?>
-                      <a href="status_pesanan.php?kode_pesanan=<?= $kode_pesanan; ?>" class="btn btn-primary"><?= ucwords($pesanan['status_pesanan']); ?></a>
+                      <a data-toggle="modal" data-target="#statusPesananModal" href="status_pesanan.php?kode_pesanan=<?= $kode_pesanan; ?>" class="btn btn-primary"><?= ucwords($pesanan['status_pesanan']); ?></a>
                     <?php endif ?>
                   </td>
                 </tr>
               </table>
             </div>
           </div>
+          <hr>
           <div class="table-responsive mt-3">
             <table class="table table-bordered font-size-checkout">
               <thead>
@@ -127,6 +128,10 @@ if (isset($_GET['kode_pesanan'])) {
                     <td class="text-right"><?= str_replace(",", ".", number_format($dp['subtotal'])); ?></td>
                   </tr>
                 <?php endforeach ?>
+                  <tr>
+                    <th colspan="4">Total Pembayaran</th>
+                    <th class="text-right"><?= str_replace(",", ".", number_format($pesanan['total_pembayaran'])); ?></th>
+                  </tr>
               </tbody>
             </table>
           </div>
@@ -141,6 +146,48 @@ if (isset($_GET['kode_pesanan'])) {
         </div>
     </div>
   </footer>
+
+  <div class="modal fade" id="statusPesananModal" tabindex="-1" aria-labelledby="statusPesananLabelModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="statusPesananLabelModal">Status Pesanan</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row justify-content-between">
+            <div class="col-12 my-3 text-center">
+              <a class="btn <?= ($pesanan['status_pesanan'] == 'proses') ? "btn-danger" : "btn-secondary"; ?>">
+                <?= ucwords('Proses'); ?>
+              </a>
+            </div>
+            <div class="col-12 my-3 text-center">
+              <a class="btn <?= ($pesanan['status_pesanan'] == 'dibuat') ? "btn-warning" : "btn-secondary"; ?>">
+                <?= ucwords('Dibuat'); ?>
+              </a>
+            </div>
+            <div class="col-12 my-3 text-center">
+              <a class="btn <?= ($pesanan['status_pesanan'] == 'perjalanan') ? "btn-success" : "btn-secondary"; ?>">
+                <?= ucwords('Perjalanan'); ?>
+              </a>
+            </div>
+            <div class="col-12 my-3 text-center">
+              <a class="btn <?= ($pesanan['status_pesanan'] == 'success') ? "btn-primary" : "btn-secondary"; ?>">
+                <?= ucwords('Selesai'); ?>
+              </a>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="status_pesanan.php?kode_pesanan=<?= $kode_pesanan; ?>" class="btn btn-primary">Refresh</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
  <?php include 'script.php' ?>
  <script>
     function copyContent() {

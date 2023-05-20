@@ -62,28 +62,36 @@
                     </div>
                     <hr class="mt-0">
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col">
                             <form method="get">
-                                <div class="form-group">
-                                    <label for="dari_tanggal">Dari Tanggal</label>
-                                    <input class="form-control" type="date" name="dari_tanggal" value="<?= isset($_GET['btnLaporan']) ? $dari_tanggal : date('Y-m-01'); ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="sampai_tanggal">Sampai Tanggal</label>
-                                    <input class="form-control" type="date" name="sampai_tanggal" value="<?= isset($_GET['btnLaporan']) ? $sampai_tanggal : date('Y-m-d'); ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="status_pesanan">Status Pesanan</label>
-                                    <select name="status_pesanan" id="status_pesanan" class="custom-select">
-                                        <?php if (isset($_GET['btnLaporan'])): ?>
-                                            <option value="<?= $status_pesanan; ?>"><?= ucwords($status_pesanan); ?></option>
-                                        <?php endif ?>
-                                        <option value="selesai">Selesai</option>
-                                        <option value="semua">Semua</option>
-                                        <option value="proses">Proses</option>
-                                        <option value="dibuat">Dibuat</option>
-                                        <option value="perjalanan">Perjalanan</option>
-                                    </select>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="dari_tanggal">Dari Tanggal</label>
+                                            <input class="form-control" type="date" name="dari_tanggal" value="<?= isset($_GET['btnLaporan']) ? $dari_tanggal : date('Y-m-01'); ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="sampai_tanggal">Sampai Tanggal</label>
+                                            <input class="form-control" type="date" name="sampai_tanggal" value="<?= isset($_GET['btnLaporan']) ? $sampai_tanggal : date('Y-m-d'); ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="status_pesanan">Status Pesanan</label>
+                                            <select name="status_pesanan" id="status_pesanan" class="custom-select">
+                                                <?php if (isset($_GET['btnLaporan'])): ?>
+                                                    <option value="<?= $status_pesanan; ?>"><?= ucwords($status_pesanan); ?></option>
+                                                <?php endif ?>
+                                                <option value="selesai">Selesai</option>
+                                                <option value="semua">Semua</option>
+                                                <option value="proses">Proses</option>
+                                                <option value="dibuat">Dibuat</option>
+                                                <option value="perjalanan">Perjalanan</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" name="btnLaporan" class="btn btn-primary"><i class="fas fa-fw fa-filter"></i> Filter</button>

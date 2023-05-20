@@ -22,9 +22,9 @@
         // cek username
         $check_username = mysqli_query($koneksi, "SELECT * FROM user WHERE username = '$username'");
         if (mysqli_num_rows($check_username)) {
+            setAlert("Perhatian!", "Username sudah digunakan!", "error");
             echo "
                 <script>
-                    alert('Username sudah digunakan!')
                     window.history.back();
                 </script>
             ";
@@ -33,9 +33,9 @@
 
         // cek password
         if ($password != $verifikasi_password) {
+            setAlert("Perhatian!", "Password tidak sama dengan Verifikasi Password!", "error");
             echo "
                 <script>
-                    alert('Password tidak sama dengan Verifikasi Password!')
                     window.history.back();
                 </script>
             ";
@@ -47,19 +47,15 @@
         $insert_user = mysqli_query($koneksi, "INSERT INTO user (username, nama_lengkap, password) VALUES ('$username', '$nama_lengkap', '$password_hash')");
 
         if ($insert_user) {
-            echo "
-                <script>
-                    alert('User berhasil ditambahkan!')
-                    window.location='user.php'
-                </script>
-            ";
+            setAlert("Berhasil!", "User berhasil ditambahkan!", "success");
+            header("location: user.php");
             exit;
         }
         else
         {
+            setAlert("Perhatian!", "User Gagal ditambahkan!", "error");
             echo "
                 <script>
-                    alert('User Gagal ditambahkan!')
                     window.history.back();
                 </script>
             ";
@@ -75,19 +71,15 @@
         $update_user = mysqli_query($koneksi, "UPDATE user SET username = '$username', nama_lengkap = '$nama_lengkap' WHERE id_user = '$id_user_data'");
 
         if ($update_user) {
-            echo "
-                <script>
-                    alert('User berhasil diubah!')
-                    window.location='user.php'
-                </script>
-            ";
+            setAlert("Berhasil!", "User berhasil diubah!", "success");
+            header("location: user.php");
             exit;
         }
         else
         {
+            setAlert("Perhatian!", "User Gagal diubah!", "error");
             echo "
                 <script>
-                    alert('User Gagal diubah!')
                     window.history.back();
                 </script>
             ";

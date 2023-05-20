@@ -15,23 +15,15 @@
             }
             else
             {
-                echo "
-                    <script>
-                        alert('username atau password yang anda masukkan salah!')
-                        window.location='login.php'
-                    </script>
-                ";
+                setAlert("Perhatian!", "sername atau password yang anda masukkan salah!", "error");
+                header("Location: login.php");
                 exit;
             }
         }
         else
         {
-            echo "
-                <script>
-                    alert('username atau password yang anda masukkan salah!')
-                    window.location='login.php'
-                </script>
-            ";
+            setAlert("Perhatian!", "sername atau password yang anda masukkan salah!", "error");
+            header("Location: login.php");
             exit;
         }
     }
@@ -50,7 +42,7 @@
     <?php include 'head.php' ?>
 </head>
 
-<body class="bg-gradient-primary">
+<body style="background-color: #F8B211;">
 
     <div class="container">
 
@@ -83,10 +75,10 @@
                                                 id="password" name="password">
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" name="btnLogin" class="btn btn-primary btn-user btn-block">Login</button>
+                                            <button type="submit" name="btnLogin" class="btn btn-warning btn-pancong font-weight-bold btn-user btn-block">Login</button>
                                         </div>
                                     </form>
-                                    <a href="index.php">Bukan Admin?</a>
+                                    <a href="index.php" class="text-pancong">Bukan Admin?</a>
                                 </div>
                             </div>
                         </div>

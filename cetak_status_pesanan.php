@@ -72,6 +72,7 @@ else {
 	      </table>
 	    </div>
 	</div>
+  <hr>
 	<div class="table-responsive mt-3">
 	    <table class="table table-bordered font-size-checkout">
 	      <thead>
@@ -94,6 +95,10 @@ else {
 	            <td class="text-right"><?= str_replace(",", ".", number_format($dp['subtotal'])); ?></td>
 	          </tr>
 	        <?php endforeach ?>
+	        	<tr>
+              <th colspan="4">Total Pembayaran</th>
+              <th class="text-right"><?= str_replace(",", ".", number_format($pesanan['total_pembayaran'])); ?></th>
+            </tr>
 	      </tbody>
 	    </table>
 	  </div>

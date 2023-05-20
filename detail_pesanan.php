@@ -21,9 +21,9 @@
         
         if($id_menu == '0')
         {
+            setAlert("Perhatian!", "Pilih menu terlebih dahulu!", "error");
             echo "
                 <script>
-                    alert('Pilih menu terlebih dahulu!')
                     window.history.back();
                 </script>
             ";
@@ -42,19 +42,15 @@
         mysqli_query($koneksi, "UPDATE pesanan SET total_pembayaran = '$total_pembayaran'");
 
         if ($insert_detail_pesanan) {
-            echo "
-                <script>
-                    alert('Menu Pesanan berhasil ditambahkan!')
-                    window.location='detail_pesanan.php?kode_pesanan=$kode_pesanan'
-                </script>
-            ";
+            setAlert("Berhasil!", "Menu Pesanan berhasil ditambahkan!", "success");
+            header("Location: detail_pesanan.php?kode_pesanan=$kode_pesanan");
             exit;
         }
         else
         {
+            setAlert("Perhatian!", "Menu Pesanan Gagal ditambahkan!", "error");
             echo "
                 <script>
-                    alert('Menu Pesanan Gagal ditambahkan!')
                     window.history.back();
                 </script>
             ";
@@ -68,9 +64,9 @@
         
         if($id_menu == '0')
         {
+            setAlert("Perhatian!", "Pilih menu terlebih dahulu!", "error");
             echo "
                 <script>
-                    alert('Pilih menu terlebih dahulu!')
                     window.history.back();
                 </script>
             ";
@@ -86,19 +82,15 @@
         $total_pembayaran = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT SUM(subtotal) as total_pembayaran FROM detail_pesanan WHERE kode_pesanan = '$kode_pesanan'"))['total_pembayaran'];
         mysqli_query($koneksi, "UPDATE pesanan SET total_pembayaran = '$total_pembayaran'");
         if ($update_detail_pesanan) {
-            echo "
-                <script>
-                    alert('Menu Pesanan berhasil diubah!')
-                    window.location='detail_pesanan.php?kode_pesanan=$kode_pesanan'
-                </script>
-            ";
+            setAlert("Berhasil!", "Menu Pesanan berhasil diubah!", "success");
+            header("Location: detail_pesanan.php?kode_pesanan=$kode_pesanan");
             exit;
         }
         else
         {
+            setAlert("Perhatian!", "Menu Pesanan Gagal diubah!", "error");
             echo "
                 <script>
-                    alert('Menu Pesanan Gagal diubah!')
                     window.history.back();
                 </script>
             ";

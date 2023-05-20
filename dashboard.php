@@ -12,19 +12,43 @@
         exit;
     }
 
-    $pesanan_semua = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan"));
-    $pesanan_proses = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'proses'"));
-    $pesanan_dibuat = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'dibuat'"));
-    $pesanan_perjalanan = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'perjalanan'"));
-    $pesanan_selesai = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'selesai'"));
+    $dari_awal_bulan = date('Y-m-01') . ' 00:00:00';
+    $sampai_tanggal_ini = date('Y-m-d') . ' 23:59:59';
 
-    $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan ORDER BY tanggal_pesanan DESC");
+    $pesanan_semua = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini'"));
+    $pesanan_proses = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'proses' AND tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini'"));
+    $pesanan_dibuat = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'dibuat' AND tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini'"));
+    $pesanan_perjalanan = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'perjalanan' AND tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini'"));
+    $pesanan_selesai = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'selesai' AND tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini'"));
 
-    $omset = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT *, sum(total_pembayaran) as omset FROM pesanan"));
+    $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini' ORDER BY tanggal_pesanan DESC");
+
+    $omset = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT *, sum(total_pembayaran) as omset FROM pesanan WHERE tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini'"));
 
     $total_menu = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM menu"));
 
-    $menu_paling_laku = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT detail_pesanan.id_menu, nama_menu, SUM(jumlah) as laku FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu GROUP BY id_menu ORDER BY laku DESC LIMIT 1"));
+    $menu_paling_laku = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT *, detail_pesanan.id_menu, nama_menu, SUM(jumlah) as laku FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu INNER JOIN pesanan ON pesanan.kode_pesanan = detail_pesanan.kode_pesanan WHERE tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini' GROUP BY detail_pesanan.id_menu ORDER BY laku DESC LIMIT 1"));
+
+    if (isset($_GET['btnFilter'])) {
+        $dari_tanggal = htmlspecialchars($_GET['dari_tanggal']);
+        $sampai_tanggal = htmlspecialchars($_GET['sampai_tanggal']);
+
+        $dari_tanggal_baru =  $dari_tanggal . ' 00:00:00';
+        $sampai_tanggal_baru =  $sampai_tanggal . ' 23:59:59';
+        $pesanan_semua = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru'"));
+        $pesanan_proses = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'proses' AND tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru'"));
+        $pesanan_dibuat = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'dibuat' AND tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru'"));
+        $pesanan_perjalanan = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'perjalanan' AND tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru'"));
+        $pesanan_selesai = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'selesai' AND tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru'"));
+
+        $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru' ORDER BY tanggal_pesanan DESC");
+
+        $omset = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT *, sum(total_pembayaran) as omset FROM pesanan WHERE tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru'"));
+
+        $total_menu = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM menu"));
+
+        $menu_paling_laku = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT *, detail_pesanan.id_menu, nama_menu, SUM(jumlah) as laku FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu INNER JOIN pesanan ON pesanan.kode_pesanan = detail_pesanan.kode_pesanan WHERE tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru' GROUP BY detail_pesanan.id_menu ORDER BY laku DESC LIMIT 1"));
+    }
 
  ?>
 
@@ -59,6 +83,27 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                     </div>
+                    <form method="GET">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="dari_tanggal">Dari Tanggal</label>
+                                    <input class="form-control" type="date" name="dari_tanggal" value="<?= isset($_GET['btnFilter']) ? $dari_tanggal : date('Y-m-01'); ?>">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="sampai_tanggal">Sampai Tanggal</label>
+                                    <input class="form-control" type="date" name="sampai_tanggal" value="<?= isset($_GET['btnFilter']) ? $sampai_tanggal : date('Y-m-d'); ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="btnFilter" class="btn btn-primary"><i class="fas fa-fw fa-filter"></i> Filter</button>
+                            <a href="dashboard.php" class="btn btn-primary"><i class="fas fa-fw fa-redo"></i> Reset</a>
+                        </div>
+                    </form>
+                    <hr>
                     <div class="row">
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
@@ -66,7 +111,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Omset</div>
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Omset (<?= (isset($_GET['btnFilter'])) ? "Filter" : "Bulan Ini"; ?>)</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">Rp. <?= str_replace(",", ".", number_format($omset['omset'])); ?></div>
                                         </div>
                                     </div>
@@ -78,7 +123,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Menu Paling Laku</div>
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Menu Paling Laku (<?= (isset($_GET['btnFilter'])) ? "Filter" : "Bulan Ini"; ?>)</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 <?php if ($menu_paling_laku): ?>
                                                 <?= $menu_paling_laku['nama_menu']; ?> - <?= $menu_paling_laku['laku']; ?>
@@ -96,7 +141,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Pesanan</div>
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Pesanan (<?= (isset($_GET['btnFilter'])) ? "Filter" : "Bulan Ini"; ?>)</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $pesanan_semua; ?></div>
                                         </div>
                                     </div>
@@ -108,7 +153,7 @@
                     <hr class="mt-0">
                     <div class="row">
                         <div class="col">
-                            <h4>Total Pesanan Berdasarkan Status:</h4>
+                            <h4>Total Pesanan Berdasarkan Status (<?= (isset($_GET['btnFilter'])) ? "Filter" : "Bulan Ini"; ?>):</h4>
                             <!-- Content Row -->
                             <div class="row">
 
@@ -119,7 +164,7 @@
                                             <div class="card-body">
                                                 <div class="row no-gutters align-items-center">
                                                     <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Belum Di Proses</div>
+                                                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Belum Di Proses (<?= (isset($_GET['btnFilter'])) ? "Filter" : "Bulan Ini"; ?>)</div>
                                                         <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $pesanan_proses; ?></div>
                                                     </div>
                                                 </div>
@@ -135,7 +180,7 @@
                                             <div class="card-body">
                                                 <div class="row no-gutters align-items-center">
                                                     <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Dibuat</div>
+                                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Dibuat (<?= (isset($_GET['btnFilter'])) ? "Filter" : "Bulan Ini"; ?>)</div>
                                                         <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $pesanan_dibuat; ?></div>
                                                     </div>
                                                 </div>
@@ -151,7 +196,7 @@
                                             <div class="card-body">
                                                 <div class="row no-gutters align-items-center">
                                                     <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Dalam Perjalan</div>
+                                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Dalam Perjalan (<?= (isset($_GET['btnFilter'])) ? "Filter" : "Bulan Ini"; ?>)</div>
                                                         <div class="row no-gutters align-items-center">
                                                             <div class="col-auto">
                                                                 <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $pesanan_perjalanan; ?></div>
@@ -171,7 +216,7 @@
                                             <div class="card-body">
                                                 <div class="row no-gutters align-items-center">
                                                     <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Selesai</div>
+                                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Selesai (<?= (isset($_GET['btnFilter'])) ? "Filter" : "Bulan Ini"; ?>)</div>
                                                         <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $pesanan_selesai; ?></div>
                                                     </div>
                                                 </div>
@@ -185,7 +230,7 @@
                     <hr class="mt-0">
                     <div class="row">
                         <div class="col">
-                            <h4>Pesanan Terbaru:</h4>
+                            <h4>Pesanan Terbaru (<?= (isset($_GET['btnFilter'])) ? "Filter" : "Bulan Ini"; ?>):</h4>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" cellspacing="0">
                                     <thead>

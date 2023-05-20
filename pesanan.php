@@ -25,19 +25,15 @@
         $insert_pesanan = mysqli_query($koneksi, "INSERT INTO pesanan (kode_pesanan, nama_pemesan, no_telp_pemesan, alamat_pemesan, tanggal_pesanan, status_pesanan, id_user) VALUES ('$kode_pesanan', '$nama_pemesan', '$no_telp_pemesan', '$alamat_pemesan', '$tanggal_pesanan', '$status_pesanan', '$id_user')");
 
         if ($insert_pesanan) {
-            echo "
-                <script>
-                    alert('Pesanan berhasil ditambahkan!')
-                    window.location='detail_pesanan.php?kode_pesanan=$kode_pesanan'
-                </script>
-            ";
+            setAlert("Berhasil!", "Pesanan berhasil ditambahkan!", "success");
+            header("Location: detail_pesanan.php?kode_pesanan=$kode_pesanan");
             exit;
         }
         else
         {
+            setAlert("Perhatian!", "Pesanan Gagal ditambahkan!", "error");
             echo "
                 <script>
-                    alert('Pesanan Gagal ditambahkan!')
                     window.history.back();
                 </script>
             ";
@@ -74,25 +70,56 @@
         }
     }
 
-    $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan ORDER BY tanggal_pesanan DESC");
+    $dari_awal_bulan = date('Y-m-01') . ' 00:00:00';
+    $sampai_tanggal_ini = date('Y-m-d') . ' 23:59:59';
+    
+    $menu = mysqli_query($koneksi, "SELECT * FROM menu");
+
+    $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini' ORDER BY tanggal_pesanan DESC");
     if (isset($_GET['status_pesanan'])) {
         $status_pesanan = htmlspecialchars($_GET['status_pesanan']);
         if ($status_pesanan == 'semua') {
-            $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan ORDER BY tanggal_pesanan DESC");
+            $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini' ORDER BY tanggal_pesanan DESC");
         }
         else
         {
-            $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = '$status_pesanan' ORDER BY tanggal_pesanan DESC");
+            $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = '$status_pesanan' AND tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini' ORDER BY tanggal_pesanan DESC");
         }
     }
 
-    $menu = mysqli_query($koneksi, "SELECT * FROM menu");
     
-    $pesanan_semua = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan"));
-    $pesanan_proses = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'proses'"));
-    $pesanan_dibuat = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'dibuat'"));
-    $pesanan_perjalanan = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'perjalanan'"));
-    $pesanan_selesai = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'selesai'"));
+    $pesanan_semua = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini'"));
+    $pesanan_proses = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'proses' AND tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini'"));
+    $pesanan_dibuat = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'dibuat' AND tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini'"));
+    $pesanan_perjalanan = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'perjalanan' AND tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini'"));
+    $pesanan_selesai = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'selesai' AND tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini'"));
+
+    if (isset($_GET['btnFilter'])) {
+        $dari_tanggal = htmlspecialchars($_GET['dari_tanggal']);
+        $sampai_tanggal = htmlspecialchars($_GET['sampai_tanggal']);
+
+        $dari_tanggal_baru =  $dari_tanggal . ' 00:00:00';
+        $sampai_tanggal_baru =  $sampai_tanggal . ' 23:59:59';
+
+        $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru' ORDER BY tanggal_pesanan DESC");
+        if (isset($_GET['status_pesanan'])) {
+            $status_pesanan = htmlspecialchars($_GET['status_pesanan']);
+            if ($status_pesanan == 'semua') {
+                $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan ORDER BY tanggal_pesanan DESC");
+            }
+            else
+            {
+                $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = '$status_pesanan' ORDER BY tanggal_pesanan DESC");
+            }
+        }
+
+        
+        $pesanan_semua = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru'"));
+        $pesanan_proses = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'proses' AND tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru'"));
+        $pesanan_dibuat = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'dibuat' AND tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru'"));
+        $pesanan_perjalanan = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'perjalanan' AND tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru'"));
+        $pesanan_selesai = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_pesanan = 'selesai' AND tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru'"));
+    }
 ?>
 
 <!DOCTYPE html>
@@ -132,7 +159,7 @@
                             <div class="card-header py-3">
                                 <div class="row">
                                     <div class="col head-left">
-                                        <h6 class="mt-2 font-weight-bold text-primary">Data Pesanan</h6>
+                                        <h6 class="mt-2 font-weight-bold text-primary">Data Pesanan (<?= (isset($_GET['btnFilter'])) ? "Filter" : "Bulan Ini"; ?>)</h6>
                                     </div>
                                     <div class="col head-right">
                                         <button type="button" class="btn btn-sm btn-primary"  data-toggle="modal" data-target="#tambahPesananModal"><i class="fas fa-fw fa-plus"></i> Tambah Pesanan</button>
@@ -140,6 +167,27 @@
                                 </div>
                             </div>
                             <div class="card-body">
+                                <form method="GET">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="dari_tanggal">Dari Tanggal</label>
+                                                <input class="form-control" type="date" name="dari_tanggal" value="<?= isset($_GET['btnFilter']) ? $dari_tanggal : date('Y-m-01'); ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="sampai_tanggal">Sampai Tanggal</label>
+                                                <input class="form-control" type="date" name="sampai_tanggal" value="<?= isset($_GET['btnFilter']) ? $sampai_tanggal : date('Y-m-d'); ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" name="btnFilter" class="btn btn-primary"><i class="fas fa-fw fa-filter"></i> Filter</button>
+                                        <a href="pesanan.php" class="btn btn-primary"><i class="fas fa-fw fa-redo"></i> Reset</a>
+                                    </div>
+                                </form>
+                                <hr>
                                 <div class="row justify-content-center text-center mb-2">
                                     <div class="col">
                                         <h4>Filter Status:</h4>

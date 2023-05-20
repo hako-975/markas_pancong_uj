@@ -21,20 +21,16 @@
                 $password_baru_hash = password_hash($password_baru, PASSWORD_DEFAULT);
                 $update_password = mysqli_query($koneksi, "UPDATE user SET password = '$password_baru_hash' WHERE id_user = '$id_user'");
                 if ($update_password) {
-                    echo "
-                        <script>
-                            alert('Password berhasil diganti!')
-                            window.location='ganti_password.php'
-                        </script>
-                    ";
+                    setAlert("Berhasil!", "Password berhasil diganti!", "success");
+                    header("Location: profile.php");
                     exit;
                 }
                 else
                 {
+                    setAlert("Perhatian!", "Password gagal diganti!", "error");
                     echo "
                         <script>
-                            alert('Password gagal diganti!')
-                            window.location='ganti_password.php'
+                            window.history.back();
                         </script>
                     ";
                     exit;
@@ -42,10 +38,10 @@
             } 
             else 
             {
+                setAlert("Perhatian!", "Password baru tidak sama dengan verifikasi Password!", "error");
                 echo "
                     <script>
-                        alert('Password baru tidak sama dengan verifikasi Password!')
-                        window.location='ganti_password.php'
+                        window.history.back();
                     </script>
                 ";
                 exit;
@@ -53,10 +49,10 @@
         } 
         else
         {
+            setAlert("Perhatian!", "Password lama salah!", "error");
             echo "
                 <script>
-                    alert('Password lama salah!')
-                    window.location='ganti_password.php'
+                    window.history.back();
                 </script>
             ";
             exit;

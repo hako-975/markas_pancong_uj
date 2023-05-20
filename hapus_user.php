@@ -10,33 +10,21 @@
 
     $check_username = mysqli_query($koneksi, "SELECT * FROM user WHERE id_user = '$id_user'");
     if (mysqli_fetch_assoc($check_username)['username'] == 'admin') {
-    	echo "
-            <script>
-                alert('User admin tidak dapat dihapus!')
-                window.location='user.php'
-            </script>
-        ";
+        setAlert("Perhatian!", "User admin tidak dapat dihapus!", "error");
+        header("Location: user.php");
         exit;
     }
 
 	$delete_user = mysqli_query($koneksi, "DELETE FROM user WHERE id_user = '$id_user'");
 
 	if ($delete_user) {
-		echo "
-            <script>
-                alert('User Berhasil dihapus!')
-                window.location='user.php'
-            </script>
-        ";
+        setAlert("Berhasil!", "User Berhasil dihapus!", "success");
+        header("Location: user.php");
         exit;
 	} 
 	else 
 	{
-	   echo "
-            <script>
-                alert('User Gagal dihapus!')
-                window.location='user.php'
-            </script>
-        ";
+        setAlert("Perhatian!", "User Gagal dihapus!", "error");
+        header("Location: user.php");
         exit;
 	}

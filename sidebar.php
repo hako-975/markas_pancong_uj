@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-black sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
@@ -13,13 +13,13 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+        <li class="nav-item <?= (strpos($_SERVER['REQUEST_URI'], "/markas_pancong_uj/dashboard.php") === 0)? 'btn-pancong active' : ''; ?>">
         <a class="nav-link" href="dashboard.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
     <hr class="sidebar-divider my-0">
-    <li class="nav-item active">
+    <li class="nav-item <?= (strpos($_SERVER['REQUEST_URI'], "/markas_pancong_uj/pesanan.php") === 0)? 'btn-pancong active' : ''; ?>">
         <a class="nav-link" href="pesanan.php">
             <i class="fas fa-fw fa-shopping-cart"></i>
             <span>Pesanan</span></a>
@@ -40,13 +40,12 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="user.php">User</a>
                 <a class="collapse-item" href="menu.php">Menu</a>
-                <a class="collapse-item" href="pesanan.php">Pesanan</a>
             </div>
         </div>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-    <li class="nav-item">
+    <li class="nav-item <?= (strpos($_SERVER['REQUEST_URI'], "/markas_pancong_uj/laporan.php") === 0)? 'btn-pancong active' : ''; ?>">
         <a class="nav-link" href="laporan.php">
             <i class="fas fa-fw fa-file-alt"></i>
             <span>Laporan</span></a>
