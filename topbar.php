@@ -9,7 +9,22 @@
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
-
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Alerts -->
+                <span class="badge badge-danger badge-counter" id="badge-counter">0</span>
+            </a>
+            <!-- Dropdown - Alerts -->
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                    Pesanan Terbaru
+                </h6>
+                <div id="content-notif"></div>
+            </div>
+        </li>
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -37,3 +52,53 @@
 
 </nav>
 <!-- End of Topbar -->
+<script>
+    function loadData() {
+        setInterval(function() {
+            $.ajax({
+                url: "data_for_notif.php?counter",
+                method: "GET",
+                success: function(response) {
+                    $("#badge-counter").html(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error loading data:", error);
+                }
+            });
+        }, 1000);
+    }
+
+    loadData();
+
+    $(document).ready(function() {
+        $("#alertsDropdown").click(function() {
+            
+            $.ajax({
+                url: "data_for_notif.php?content-notif",
+                method: "GET",
+                success: function(response) {
+                    $("#content-notif").html(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error loading data:", error);
+                }
+            });
+
+            $.ajax({
+                url: "update_status_notif.php",
+                method: "POST",
+                data: { status_notif: 1 },
+                success: function(response) {
+                    // Code to execute when the update is successful
+                    console.log("Status updated!");
+                },
+                error: function(xhr, status, error) {
+                    // Code to handle errors
+                    console.error("Error updating status:", error);
+                }
+            });
+        });
+    });
+
+
+</script>
