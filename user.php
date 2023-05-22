@@ -21,7 +21,7 @@
 
         // cek username
         $check_username = mysqli_query($koneksi, "SELECT * FROM user WHERE username = '$username'");
-        if (mysqli_num_rows($check_username)) {
+        if (mysqli_num_rows($check_username) > 0) {
             setAlert("Perhatian!", "Username sudah digunakan!", "error");
             echo "
                 <script>
@@ -160,7 +160,7 @@
                                                     <td class="text-center align-middle">
                                                         <?php if ($du['username'] != 'admin'): ?>
                                                             <a class="btn btn-sm btn-warning text-white m-1" data-toggle="modal" data-target="#ubahUserModal<?= $du['id_user']; ?>"><i class="fas fa-fw fa-edit"></i> Ubah</a>
-                                                            <a class="btn btn-sm btn-danger text-white m-1" href="hapus_user.php?id_user=<?= $du['id_user']; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus user dengan username <?= $du['username']; ?>?')"><i class="fas fa-fw fa-trash"></i> Hapus</a>
+                                                            <a class="btn btn-sm btn-danger text-white m-1 btn-alert" data-status="Hapus" href="hapus_user.php?id_user=<?= $du['id_user']; ?>" data-nama="Apakah Anda yakin ingin menghapus user dengan username <?= $du['username']; ?>?"><i class="fas fa-fw fa-trash"></i> Hapus</a>
                                                             
                                                             <div class="modal fade" id="ubahUserModal<?= $du['id_user']; ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="ubahUserModalLabel<?= $du['id_user']; ?>" aria-hidden="true">
                                                               <div class="modal-dialog text-left">

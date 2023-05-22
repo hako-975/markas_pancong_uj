@@ -199,10 +199,10 @@
                                                         $selesaiClass = 'bg-dark';
                                                 }
                                             ?>
-                                            <a href="ubah_status.php?kode_pesanan=<?= $kode_pesanan; ?>&status=proses" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi proses?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $prosesClass; ?>">Proses</a>
-                                            <a href="ubah_status.php?kode_pesanan=<?= $kode_pesanan; ?>&status=dibuat" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi dibuat?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $dibuatClass; ?>">Dibuat</a>
-                                            <a href="ubah_status.php?kode_pesanan=<?= $kode_pesanan; ?>&status=perjalanan" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi perjalanan?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $perjalananClass; ?>">Perjalanan</a>
-                                            <a href="ubah_status.php?kode_pesanan=<?= $kode_pesanan; ?>&status=selesai" onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi selesai?')" class="col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $selesaiClass; ?>">Selesai</a>
+                                            <a href="ubah_status.php?kode_pesanan=<?= $kode_pesanan; ?>&status=proses" data-status="Ubah" data-nama="Apakah Anda yakin ingin mengubah status menjadi proses?" class="btn-alert col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $prosesClass; ?>">Proses</a>
+                                            <a href="ubah_status.php?kode_pesanan=<?= $kode_pesanan; ?>&status=dibuat" data-status="Ubah" data-nama="Apakah Anda yakin ingin mengubah status menjadi dibuat?" class="btn-alert col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $dibuatClass; ?>">Dibuat</a>
+                                            <a href="ubah_status.php?kode_pesanan=<?= $kode_pesanan; ?>&status=perjalanan" data-status="Ubah" data-nama="Apakah Anda yakin ingin mengubah status menjadi perjalanan?" class="btn-alert col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $perjalananClass; ?>">Perjalanan</a>
+                                            <a href="ubah_status.php?kode_pesanan=<?= $kode_pesanan; ?>&status=selesai" data-status="Ubah" data-nama="Apakah Anda yakin ingin mengubah status menjadi selesai?" class="btn-alert col-2 text-center text-decoration-none text-white rounded p-2 m-auto <?php echo $selesaiClass; ?>">Selesai</a>
                                         </div>
                                     </div>
                                 </div>
@@ -229,7 +229,7 @@
                                                     <td class="align-middle">Rp. <?= str_replace(",", ".", number_format($dp['subtotal'])); ?></td>
                                                     <td class="text-center align-middle">
                                                         <a class="btn btn-sm btn-warning text-white m-1" data-toggle="modal" data-target="#ubahDetailPesananModal<?= $dp['id_detail_pesanan']; ?>"><i class="fas fa-fw fa-edit"></i> Ubah</a>
-                                                        <a class="btn btn-sm btn-danger text-white m-1" href="hapus_detail_pesanan.php?id_detail_pesanan=<?= $dp['id_detail_pesanan']; ?>&kode_pesanan=<?= $kode_pesanan; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus menu pesanan <?= $dp['nama_menu']; ?>?')"><i class="fas fa-fw fa-trash"></i> Hapus</a>
+                                                        <a class="btn btn-sm btn-danger text-white m-1 btn-alert" href="hapus_detail_pesanan.php?id_detail_pesanan=<?= $dp['id_detail_pesanan']; ?>&kode_pesanan=<?= $kode_pesanan; ?>" data-status="Hapus" data-nama="Apakah Anda yakin ingin menghapus menu pesanan <?= $dp['nama_menu']; ?>?"><i class="fas fa-fw fa-trash"></i> Hapus</a>
                                                         
                                                         <div class="modal fade" id="ubahDetailPesananModal<?= $dp['id_detail_pesanan']; ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="ubahPesananModalLabel<?= $dp['id_detail_pesanan']; ?>" aria-hidden="true">
                                                           <div class="modal-dialog modal-lg text-left">

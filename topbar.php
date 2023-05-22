@@ -65,7 +65,7 @@
                     console.error("Error loading data:", error);
                 }
             });
-        }, 1000);
+        }, 100);
     }
 
     loadData();

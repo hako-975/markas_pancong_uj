@@ -236,11 +236,11 @@
                                                     </td>
                                                     <td class="align-middle text-center">
                                                         <?php if ($dp['status_pesanan'] == 'proses'): ?>
-                                                            <a onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi dibuat?')" href="ubah_status.php?kode_pesanan=<?= $dp['kode_pesanan']; ?>&status=dibuat" class="btn btn-danger"><?= ucwords($dp['status_pesanan']); ?></a>
+                                                            <a data-status="Ubah" data-nama="Apakah Anda yakin ingin mengubah status menjadi dibuat?" href="ubah_status.php?kode_pesanan=<?= $dp['kode_pesanan']; ?>&status=dibuat" class="btn btn-alert btn-danger"><?= ucwords($dp['status_pesanan']); ?></a>
                                                         <?php elseif ($dp['status_pesanan'] == 'dibuat'): ?>
-                                                            <a onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi perjalanan?')" href="ubah_status.php?kode_pesanan=<?= $dp['kode_pesanan']; ?>&status=perjalanan" class="btn btn-warning"><?= ucwords($dp['status_pesanan']); ?></a>
+                                                            <a data-status="Ubah" data-nama="Apakah Anda yakin ingin mengubah status menjadi perjalanan?" href="ubah_status.php?kode_pesanan=<?= $dp['kode_pesanan']; ?>&status=perjalanan" class="btn btn-alert btn-warning"><?= ucwords($dp['status_pesanan']); ?></a>
                                                         <?php elseif ($dp['status_pesanan'] == 'perjalanan'): ?>
-                                                            <a onclick="return confirm('Apakah Anda yakin ingin mengubah status menjadi selesai?')" href="ubah_status.php?kode_pesanan=<?= $dp['kode_pesanan']; ?>&status=selesai" class="btn btn-success"><?= ucwords($dp['status_pesanan']); ?></a>
+                                                            <a data-status="Ubah" data-nama="Apakah Anda yakin ingin mengubah status menjadi selesai?" href="ubah_status.php?kode_pesanan=<?= $dp['kode_pesanan']; ?>&status=selesai" class="btn btn-alert btn-success"><?= ucwords($dp['status_pesanan']); ?></a>
                                                         <?php elseif ($dp['status_pesanan'] == 'selesai'): ?>
                                                             <a class="btn btn-primary"><?= ucwords($dp['status_pesanan']); ?></a>
                                                         <?php endif ?>
@@ -248,7 +248,7 @@
                                                     <td class="text-center align-middle">
                                                         <a class="btn btn-sm btn-success" href="detail_pesanan.php?kode_pesanan=<?= $dp['kode_pesanan']; ?>"><i class="fas fa-fw fa-bars"></i> Detail</a>
                                                         <a class="btn btn-sm btn-warning text-white m-1" data-toggle="modal" data-target="#ubahPesananModal<?= $dp['kode_pesanan']; ?>"><i class="fas fa-fw fa-edit"></i> Ubah</a>
-                                                        <a class="btn btn-sm btn-danger text-white m-1" href="hapus_pesanan.php?kode_pesanan=<?= $dp['kode_pesanan']; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus pesanan dengan nama pemesan <?= $dp['nama_pemesan']; ?>?')"><i class="fas fa-fw fa-trash"></i> Hapus</a>
+                                                        <a class="btn btn-sm btn-danger text-white m-1 btn-alert" data-status="Hapus" href="hapus_pesanan.php?kode_pesanan=<?= $dp['kode_pesanan']; ?>" data-nama="Pesanan dengan nama kak <?= $dp['nama_pemesan']; ?> akan terhapus!"><i class="fas fa-fw fa-trash"></i> Hapus</a>
                                                         
                                                         <div class="modal fade" id="ubahPesananModal<?= $dp['kode_pesanan']; ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="ubahPesananModalLabel<?= $dp['kode_pesanan']; ?>" aria-hidden="true">
                                                           <div class="modal-dialog text-left">

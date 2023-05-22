@@ -196,7 +196,7 @@
                                                     </td>
                                                     <td class="text-center align-middle">
                                                         <a class="btn btn-sm btn-warning text-white m-1" data-toggle="modal" data-target="#ubahMenuModal<?= $dm['id_menu']; ?>"><i class="fas fa-fw fa-edit"></i> Ubah</a>
-                                                        <a class="btn btn-sm btn-danger text-white m-1" href="hapus_menu.php?id_menu=<?= $dm['id_menu']; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus menu dengan nama menu <?= $dm['nama_menu']; ?>?')"><i class="fas fa-fw fa-trash"></i> Hapus</a>
+                                                        <a class="btn btn btn-sm btn-danger text-white m-1 btn-alert" data-status="Hapus" data-nama="Menu <?= $dm['nama_menu']; ?> akan terhapus!" href="hapus_menu.php?id_menu=<?= $dm['id_menu']; ?>"><i class="fas fa-fw fa-trash"></i> Hapus</a>
                                                         
                                                         <div class="modal fade" id="ubahMenuModal<?= $dm['id_menu']; ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="ubahMenuModalLabel<?= $dm['id_menu']; ?>" aria-hidden="true">
                                                           <div class="modal-dialog text-left">
@@ -300,7 +300,7 @@
                 <label for="foto_menu">Foto Menu<sup class="text-danger">*</sup></label>
                 <div class="input-group mb-3">
                   <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="foto_menu" aria-describedby="foto_menu" name="foto_menu">
+                    <input type="file" class="custom-file-input" id="foto_menu" aria-describedby="foto_menu" name="foto_menu" required>
                     <label class="custom-file-label" for="foto_menu">Choose file</label>
                   </div>
                 </div>
