@@ -18,14 +18,14 @@
             }
             else
             {
-                setAlert("Perhatian!", "sername atau password yang anda masukkan salah!", "error");
+                setAlert("Perhatian!", "Username atau password yang anda masukkan salah!", "error");
                 header("Location: login.php");
                 exit;
             }
         }
         else
         {
-            setAlert("Perhatian!", "sername atau password yang anda masukkan salah!", "error");
+            setAlert("Perhatian!", "Username atau password yang anda masukkan salah!", "error");
             header("Location: login.php");
             exit;
         }
