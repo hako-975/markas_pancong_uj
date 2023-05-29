@@ -9,6 +9,10 @@
     $menu_makanan = mysqli_query($koneksi, "SELECT * FROM menu WHERE jenis_menu = 'makanan'");
     $menu_minuman = mysqli_query($koneksi, "SELECT * FROM menu WHERE jenis_menu = 'minuman'");
   }
+    
+  $dari_awal_bulan = date('Y-m-01') . ' 00:00:00';
+  $sampai_tanggal_ini = date('Y-m-d') . ' 23:59:59';
+  $menu_paling_laku = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT *, detail_pesanan.id_menu, nama_menu, SUM(jumlah) as laku FROM detail_pesanan INNER JOIN menu ON detail_pesanan.id_menu = menu.id_menu INNER JOIN pesanan ON pesanan.kode_pesanan = detail_pesanan.kode_pesanan WHERE tanggal_pesanan BETWEEN '$dari_awal_bulan' AND '$sampai_tanggal_ini' GROUP BY detail_pesanan.id_menu ORDER BY laku DESC LIMIT 1"));
 
  ?>
 
@@ -35,18 +39,22 @@
       </div>
     </div>
   </nav>
-  <section id="menu" class="mt-5 pt-5 bg-black">
-    <div class="container mt-4">
+  <section class="fixed-top mt-5">
+    <div class="container bg-black mt-5 pb-2">
       <form>
         <h4 class="text-left text-pancong">Cari Menu</h4>
         <div class="input-group mb-3">
-          <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Contoh: Pancong Cokelat" aria-label="Contoh: Pancong Cokelat" aria-describedby="button-search" value="<?php echo isset($_GET['keyword']) ? $_GET['keyword'] : ''; ?>">
+          <input type="text" name="keyword" id="keyword" class="form-control" placeholder="<?= ucwords($menu_paling_laku['nama_menu']); ?> (HOT!)" aria-label="<?= ucwords($menu_paling_laku['nama_menu']); ?> (HOT!)" aria-describedby="button-search" value="<?php echo isset($_GET['keyword']) ? $_GET['keyword'] : ''; ?>">
           <div class="input-group-append">
             <button type="button" class="btn btn-pancong" onclick="clearSearch()"><i class="fas fa-fw fa-times"></i> Clear</button>
           </div>
         </div>
       </form>
-      <form method="post" action="checkout.php">
+    </div>
+  </section>
+  <section id="menu" class="mt-5 pt-5 bg-black">
+    <div class="container mt-5 pt-5">
+      <form method="post" action="checkout.php" class="mt-4">
         <div id="menu-search">
           <div class="row">
             <div class="col">
@@ -59,7 +67,7 @@
                         <img src="img/menu/<?= $dmm['foto_menu']; ?>" class="card-img-top" alt="<?= $dmm['foto_menu']; ?>">
                       </div>
                       <div class="card-body">
-                        <h5 class="card-title"><?= $dmm['nama_menu']; ?></h5>
+                        <h5 class="card-title"><?= $dmm['nama_menu']; ?> <?= ($menu_paling_laku['nama_menu'] == $dmm['nama_menu']) ? '(PALING LAKU)' : ''; ?></h5>
                         <p class="card-text">Rp. <?= str_replace(",", ".", number_format($dmm['harga_menu'])); ?></p>
                         <input type="hidden" name="id_menu[]" value="<?= $dmm['id_menu']; ?>">
                         <div class="input-group mb-3">

@@ -90,6 +90,10 @@ html {
     border-color: #F8B211!important;
 }
 
+.card {
+    height: 100%;
+}
+
 .card-image-container {
   width: 100%;
   height: 300px;

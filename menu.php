@@ -45,15 +45,15 @@
 
         if ($insert_menu) {
             $tgl_riwayat = date('Y-m-d H:i:s');
-            mysqli_query($koneksi, "INSERT INTO riwayat VALUES ('', 'Menu Berhasil ditambahkan!', '$tgl_riwayat', '$id_user')");
+            mysqli_query($koneksi, "INSERT INTO riwayat VALUES ('', 'Menu $nama_menu Berhasil ditambahkan!', '$tgl_riwayat', '$id_user')");
             
-            setAlert("Berhasil!", "Menu Berhasil ditambahkan!", "success");
+            setAlert("Berhasil!", "Menu ".$nama_menu." Berhasil ditambahkan!", "success");
             header("Location: menu.php");
             exit;
         }
         else
         {
-            setAlert("Perhatian!", "Menu Gagal ditambahkan!", "error");
+            setAlert("Perhatian!", "Menu ".$nama_menu." Gagal ditambahkan!", "error");
             echo "
                 <script>
                     window.history.back();
@@ -103,7 +103,9 @@
         $update_menu = mysqli_query($koneksi, "UPDATE menu SET nama_menu = '$nama_menu', harga_menu = '$harga_menu', jenis_menu = '$jenis_menu', foto_menu = '$foto_menu' WHERE id_menu = '$id_menu'");
 
         if ($update_menu) {
-            setAlert("Berhasil!", "Menu Berhasil diubah!", "success");
+            $tgl_riwayat = date('Y-m-d H:i:s');
+            mysqli_query($koneksi, "INSERT INTO riwayat VALUES ('', 'Menu $nama_menu Berhasil diubah!', '$tgl_riwayat', '$id_user')");
+            setAlert("Berhasil!", "Menu ".$nama_menu." Berhasil diubah!", "success");
             header("Location: menu.php");
             exit;
         }
@@ -120,7 +122,7 @@
         
     }
 
-    $menu = mysqli_query($koneksi, "SELECT * FROM menu");
+    $menu = mysqli_query($koneksi, "SELECT * FROM menu ORDER BY nama_menu ASC");
 
 ?>
 
