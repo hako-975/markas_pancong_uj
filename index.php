@@ -31,11 +31,9 @@
       </div>
     </div>
   </nav>
-
-  <div class="jumbotron text-white font-weight-bolder bg-black">
-    <h1 class="display-4">Markas Pancong UJ</h1>
-    <p class="lead">Lokasi: Pondok Makan Cemara, depan UNPAM Viktor</p>
-    <a class="btn btn-warning btn-lg btn-pancong" href="pesan.php" role="button"><i class="fas fa-fw fa-shopping-cart"></i> Pesan Sekarang!</a>
+  <div class="container mt-5 pt-3"></div>
+  <div class="jumbotron text-white font-weight-bolder bg-black mt-5">
+    <a class="btn btn-warning btn-lg btn-pancong mt-5" href="pesan.php" role="button"><i class="fas fa-fw fa-shopping-cart"></i> Pesan Sekarang!</a>
   </div>
 
   <section id="menu" class="bg-black py-5">

@@ -24,23 +24,14 @@
   <?php include 'head.php' ?>
 </head>
 <body style="background-color: black;">
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-black">
-    <div class="container">
-      <a class="navbar-brand" href="index.php"><img src="img/logo.png" alt="logo"><span>Markas Pancong UJ</span></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link btn btn-warning btn-pancong text-white m-1" href="status_pesanan.php"><i class="fas fa-fw fa-check"></i> Cek Status Pesanan</a>
-          </li>
-        </ul>
+  <section class="fixed-top d-flex flex-column">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+      <div class="container">
+        <a class="navbar-brand" href="index.php"><img src="img/logo.png" alt="logo"><span>Markas Pancong UJ</span></a>
+        <a class="nav-link btn btn-warning btn-pancong text-center text-white m-1" href="status_pesanan.php"><i class="fas fa-fw fa-check"></i> Cek Status Pesanan</a>
       </div>
-    </div>
-  </nav>
-  <section class="fixed-top mt-5">
-    <div class="container bg-black mt-5 pb-2">
+    </nav>
+    <div class="container bg-black">
       <form>
         <h4 class="text-left text-pancong">Cari Menu</h4>
         <div class="input-group mb-3">
