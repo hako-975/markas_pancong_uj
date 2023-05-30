@@ -61,7 +61,7 @@
                   <?php foreach ($menu_makanan as $dmm): ?>
                     <div class="col-lg-4 my-2">
                       <a href="pesan.php" class="text-decoration-none text-dark">
-                        <div class="card border-pancong bg-black text-pancong">
+                        <div class="card card-menu border-pancong bg-black text-pancong">
                           <div class="card-image-container">
                             <img src="img/menu/<?= $dmm['foto_menu']; ?>" class="card-img-top" alt="<?= $dmm['foto_menu']; ?>">
                           </div>
@@ -80,7 +80,7 @@
                     <?php foreach ($menu_minuman as $dmm): ?>
                       <div class="col-lg-4 my-2">
                         <a href="pesan.php" class="text-decoration-none text-dark">
-                          <div class="card border-pancong bg-black text-pancong">
+                          <div class="card card-menu border-pancong bg-black text-pancong">
                             <div class="card-image-container">
                               <img src="img/menu/<?= $dmm['foto_menu']; ?>" class="card-img-top" alt="<?= $dmm['foto_menu']; ?>">
                             </div>

@@ -62,7 +62,7 @@
               <div class="row" id="list-makanan">
                 <?php foreach ($menu_makanan as $dmm): ?>
                   <div class="col-lg-3 my-2">
-                    <div class="card border-pancong bg-black text-pancong">
+                    <div class="card card-menu border-pancong bg-black text-pancong">
                       <div class="card-image-container">
                         <img src="img/menu/<?= $dmm['foto_menu']; ?>" class="card-img-top" alt="<?= $dmm['foto_menu']; ?>">
                       </div>
@@ -90,7 +90,7 @@
               <div class="row" id="list-minuman">
                 <?php foreach ($menu_minuman as $dmm): ?>
                   <div class="col-lg-3 my-2">
-                    <div class="card border-pancong bg-black text-pancong">
+                    <div class="card card-menu border-pancong bg-black text-pancong">
                       <div class="card-image-container">
                         <img src="img/menu/<?= $dmm['foto_menu']; ?>" class="card-img-top" alt="<?= $dmm['foto_menu']; ?>">
                       </div>
