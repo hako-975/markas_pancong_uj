@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 21 Bulan Mei 2023 pada 10.42
+-- Waktu pembuatan: 08 Jun 2023 pada 16.20
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.2.0
 
@@ -40,19 +40,8 @@ CREATE TABLE `detail_pesanan` (
 --
 
 INSERT INTO `detail_pesanan` (`id_detail_pesanan`, `id_menu`, `jumlah`, `subtotal`, `kode_pesanan`) VALUES
-(1, 4, 1, 3000, '6287808675313-S8Qr5'),
-(2, 4, 1, 3000, '6287808675313-jPY2n'),
-(3, 4, 1, 3000, '6287808675313-IPWgz'),
-(4, 3, 1, 10000, '087808675313-j4uR1'),
-(5, 3, 1, 10000, '6287808675313-IlUtx'),
-(6, 2, 1, 20000, '087808675313-SaLy0'),
-(7, 2, 1, 20000, '6287808675313-djRk0'),
-(8, 3, 2, 20000, '6287808675313-Pmvv4'),
-(9, 3, 1, 10000, '6287808675313-bASTD'),
-(10, 3, 1, 10000, '6287808675313-hD6rm'),
-(11, 3, 1, 10000, '6287808675313-bBrcx'),
-(12, 3, 1, 10000, '123-ZE5NO'),
-(13, 3, 1, 10000, '123-erwPo');
+(1, 2, 1, 20000, '6287808675313-ZyoFu'),
+(2, 1, 1, 17000, '6287808675313-6YWAR');
 
 -- --------------------------------------------------------
 
@@ -73,9 +62,19 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id_menu`, `nama_menu`, `harga_menu`, `jenis_menu`, `foto_menu`) VALUES
-(2, 'Pancong Keju', 20000, 'makanan', '640c6d18ee9cePancong.jpeg'),
-(3, 'Pancong Cokelat', 10000, 'makanan', '640c6d6e9ac09food-spot-pancong-lumer.jpeg'),
-(4, 'teh jus ', 3000, 'minuman', '6412b223dad806412b19f1c4c67866512_cc2058b5-0684-49fc-820c-4fcbb460932d_1781_1781.jpg');
+(1, 'Ayam Penyet + Nasi', 17000, 'makanan', '6471963aacce74bd435cfadb8f7084b8114bfb0e22cc6.jpg'),
+(2, 'Ayam Bakar + Nasi', 20000, 'makanan', '6471967dda33620-17-24-images.jpg'),
+(3, 'Es Good Day', 6000, 'minuman', '647197692b0b799818e5d5694095ad2cc4ffe7ac31dbc.jpg'),
+(4, 'Es Tea Jus', 3000, 'minuman', '64719798e1645bf37569d387b597a9fb0a90c552ceacd.jpg'),
+(5, 'Mie Tektek Kuah', 15000, 'makanan', '647197d19d54e07-17-26-images_image_repair_1684801276750.jpg'),
+(6, 'Mie Goreng', 15000, 'makanan', '647197de42de2MTXX_MH20230523_071859037_image_repair_1684801259041.jpg'),
+(7, 'Pancong Coklat Keju', 13000, 'makanan', '64719818efa8cIMG_20230522_134124.jpg'),
+(8, 'Pancong Strawberry Susu', 10000, 'makanan', '6471982ad5ae9IMG_20230522_134013.jpg'),
+(9, 'Pancong Tiramisu', 13000, 'makanan', '6471984353cddIMG_20230522_133937.jpg'),
+(10, 'Pancong Choco Crunchy', 13000, 'makanan', '6471986239feaIMG_20230522_134311.jpg'),
+(11, 'Pancong Oreo', 13000, 'makanan', '647198707cf54IMG_20230522_134320.jpg'),
+(12, 'Kopi Hangat', 4000, 'minuman', '647198811c59ePicsart_23-05-25_17-59-43-844.jpg'),
+(13, 'Nutrisari', 5000, 'minuman', '64719892da40cPicsart_23-05-25_18-00-13-482.jpg');
 
 -- --------------------------------------------------------
 
@@ -91,27 +90,17 @@ CREATE TABLE `pesanan` (
   `tanggal_pesanan` datetime NOT NULL,
   `total_pembayaran` int(11) DEFAULT NULL,
   `status_pesanan` enum('proses','dibuat','perjalanan','selesai') NOT NULL DEFAULT 'proses',
-  `id_user` int(11) DEFAULT NULL
+  `id_user` int(11) DEFAULT NULL,
+  `status_notif` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data untuk tabel `pesanan`
 --
 
-INSERT INTO `pesanan` (`kode_pesanan`, `nama_pemesan`, `no_telp_pemesan`, `alamat_pemesan`, `tanggal_pesanan`, `total_pembayaran`, `status_pesanan`, `id_user`) VALUES
-('087808675313-j4uR1', 'Andri Firman Saputra', '087808675313', 'POCIS', '2023-05-20 14:06:15', 20000, 'selesai', 1),
-('087808675313-SaLy0', 'Andri Firman Saputra', '087808675313', 'pocis\r\n', '2023-05-20 18:22:05', 20000, 'selesai', 1),
-('123-erwPo', 'asd', '123', 'ad', '2023-05-21 15:07:45', 10000, 'proses', NULL),
-('123-ZE5NO', 'asd', '123', 'asd', '2023-05-21 15:06:25', 10000, 'proses', NULL),
-('6287808675313-bASTD', 'Andri Firman Saputra', '6287808675313', 'Pocis', '2023-05-21 15:04:01', 10000, 'proses', NULL),
-('6287808675313-bBrcx', 'Andri Firman Saputra', '6287808675313', 'asd', '2023-05-21 15:06:00', 10000, 'proses', NULL),
-('6287808675313-djRk0', 'Andri Firman Saputra', '6287808675313', 'Pocis', '2023-05-21 14:53:57', 20000, 'proses', NULL),
-('6287808675313-hD6rm', 'Andri Firman Saputra', '6287808675313', 'Pocis', '2023-05-21 15:05:13', 10000, 'proses', NULL),
-('6287808675313-IlUtx', 'Andri Firman Saputra', '6287808675313', 'Jl. AMD Babakan Pocis', '2023-05-20 14:47:02', 20000, 'perjalanan', 1),
-('6287808675313-IPWgz', 'Andri Firman Saputra', '6287808675313', 'Pocis', '2023-05-20 00:12:45', 20000, 'perjalanan', 1),
-('6287808675313-jPY2n', 'Andri Firman Saputra', '6287808675313', 'Pocis', '2023-05-20 00:02:26', 20000, 'proses', NULL),
-('6287808675313-Pmvv4', 'Andri Firman Saputra', '6287808675313', 'Pocis', '2023-05-21 15:03:00', 20000, 'proses', NULL),
-('6287808675313-S8Qr5', 'Andri Firman Saputra', '6287808675313', 'Pocis', '2023-05-19 23:46:41', 20000, 'proses', NULL);
+INSERT INTO `pesanan` (`kode_pesanan`, `nama_pemesan`, `no_telp_pemesan`, `alamat_pemesan`, `tanggal_pesanan`, `total_pembayaran`, `status_pesanan`, `id_user`, `status_notif`) VALUES
+('6287808675313-6YWAR', 'Andri Firman Saputra', '6287808675313', 'Jl. AMD Babakan Pocis No. 88 RT04/RW02', '2023-05-30 09:37:31', 17000, 'proses', NULL, 0),
+('6287808675313-ZyoFu', 'Andri Firman Saputra', '6287808675313', 'Jl. AMD Babakan Pocis No. 88', '2023-05-27 12:53:49', 20000, 'selesai', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -131,14 +120,29 @@ CREATE TABLE `riwayat` (
 --
 
 INSERT INTO `riwayat` (`id_riwayat`, `isi_riwayat`, `tanggal_riwayat`, `id_user`) VALUES
-(1, 'User Berhasil login!', '2023-05-20 18:21:19', 1),
-(2, 'Pesanan berhasil ditambahkan!', '2023-05-20 18:22:05', 1),
-(3, 'Menu Pesanan berhasil ditambahkan!', '2023-05-20 18:22:10', 1),
-(4, 'Status Pesanan Berhasil diubah! dengan kode pesanan 087808675313-SaLy0', '2023-05-20 18:22:51', 1),
-(5, 'Status Pesanan Berhasil diubah! dengan kode pesanan 087808675313-SaLy0', '2023-05-20 18:25:26', 1),
-(6, 'User Berhasil login!', '2023-05-21 14:23:06', 1),
-(7, 'User Berhasil login!', '2023-05-21 15:03:39', 1),
-(8, 'User Berhasil login!', '2023-05-21 15:14:17', 1);
+(1, 'User Berhasil login!', '2023-05-27 12:33:03', 1),
+(2, 'Menu Berhasil ditambahkan!', '2023-05-27 12:33:47', 1),
+(3, 'Menu Berhasil ditambahkan!', '2023-05-27 12:34:53', 1),
+(4, 'Menu Ayam Penyet + Nasi Berhasil ditambahkan!', '2023-05-27 12:37:04', 1),
+(5, 'Menu Ayam Penyet + Nasi Berhasil ditambahkan!', '2023-05-27 12:37:12', 1),
+(6, 'Menu Es Good Day Berhasil ditambahkan!', '2023-05-27 12:38:49', 1),
+(7, 'Menu Es Tea Jus Berhasil ditambahkan!', '2023-05-27 12:39:36', 1),
+(8, 'Menu Mie Tektek Kuah Berhasil ditambahkan!', '2023-05-27 12:40:33', 1),
+(9, 'Menu Mie Goreng Berhasil ditambahkan!', '2023-05-27 12:40:46', 1),
+(10, 'Menu Pancong Coklat Keju Berhasil ditambahkan!', '2023-05-27 12:41:44', 1),
+(11, 'Menu Pancong Strawberry Susu Berhasil ditambahkan!', '2023-05-27 12:42:02', 1),
+(12, 'Menu Pancong Tiramisu Berhasil ditambahkan!', '2023-05-27 12:42:27', 1),
+(13, 'Menu Pancong Choco Crunchy Berhasil ditambahkan!', '2023-05-27 12:42:58', 1),
+(14, 'Menu Pancong Oreo Berhasil ditambahkan!', '2023-05-27 12:43:12', 1),
+(15, 'Menu Kopi Hangat Berhasil ditambahkan!', '2023-05-27 12:43:29', 1),
+(16, 'Menu Nutrisari Berhasil ditambahkan!', '2023-05-27 12:43:46', 1),
+(17, 'Mencetak Laporan!', '2023-05-27 12:52:45', 1),
+(18, 'Status Pesanan Berhasil diubah! dengan kode pesanan 6287808675313-ZyoFu', '2023-05-27 12:54:12', 1),
+(19, 'Status Pesanan Berhasil diubah! dengan kode pesanan 6287808675313-ZyoFu', '2023-05-27 12:54:43', 1),
+(20, 'Status Pesanan Berhasil diubah! dengan kode pesanan 6287808675313-ZyoFu', '2023-05-27 12:54:47', 1),
+(21, 'Mencetak Laporan!', '2023-05-27 12:54:59', 1),
+(22, 'Mencetak Laporan!', '2023-05-27 12:56:32', 1),
+(23, 'User Berhasil login!', '2023-05-30 09:35:39', 1);
 
 -- --------------------------------------------------------
 
@@ -207,25 +211,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `detail_pesanan`
 --
 ALTER TABLE `detail_pesanan`
-  MODIFY `id_detail_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_detail_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `riwayat`
 --
 ALTER TABLE `riwayat`
-  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
