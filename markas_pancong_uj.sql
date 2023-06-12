@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Jun 2023 pada 16.20
+-- Waktu pembuatan: 11 Jun 2023 pada 17.16
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.2.0
 
@@ -34,14 +34,6 @@ CREATE TABLE `detail_pesanan` (
   `subtotal` int(11) NOT NULL,
   `kode_pesanan` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data untuk tabel `detail_pesanan`
---
-
-INSERT INTO `detail_pesanan` (`id_detail_pesanan`, `id_menu`, `jumlah`, `subtotal`, `kode_pesanan`) VALUES
-(1, 2, 1, 20000, '6287808675313-ZyoFu'),
-(2, 1, 1, 17000, '6287808675313-6YWAR');
 
 -- --------------------------------------------------------
 
@@ -94,14 +86,6 @@ CREATE TABLE `pesanan` (
   `status_notif` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data untuk tabel `pesanan`
---
-
-INSERT INTO `pesanan` (`kode_pesanan`, `nama_pemesan`, `no_telp_pemesan`, `alamat_pemesan`, `tanggal_pesanan`, `total_pembayaran`, `status_pesanan`, `id_user`, `status_notif`) VALUES
-('6287808675313-6YWAR', 'Andri Firman Saputra', '6287808675313', 'Jl. AMD Babakan Pocis No. 88 RT04/RW02', '2023-05-30 09:37:31', 17000, 'proses', NULL, 0),
-('6287808675313-ZyoFu', 'Andri Firman Saputra', '6287808675313', 'Jl. AMD Babakan Pocis No. 88', '2023-05-27 12:53:49', 20000, 'selesai', 1, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -142,7 +126,8 @@ INSERT INTO `riwayat` (`id_riwayat`, `isi_riwayat`, `tanggal_riwayat`, `id_user`
 (20, 'Status Pesanan Berhasil diubah! dengan kode pesanan 6287808675313-ZyoFu', '2023-05-27 12:54:47', 1),
 (21, 'Mencetak Laporan!', '2023-05-27 12:54:59', 1),
 (22, 'Mencetak Laporan!', '2023-05-27 12:56:32', 1),
-(23, 'User Berhasil login!', '2023-05-30 09:35:39', 1);
+(23, 'User Berhasil login!', '2023-05-30 09:35:39', 1),
+(24, 'User Berhasil login!', '2023-06-09 16:42:35', 1);
 
 -- --------------------------------------------------------
 
@@ -211,7 +196,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `detail_pesanan`
 --
 ALTER TABLE `detail_pesanan`
-  MODIFY `id_detail_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_detail_pesanan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `menu`
@@ -223,7 +208,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT untuk tabel `riwayat`
 --
 ALTER TABLE `riwayat`
-  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
