@@ -1,12 +1,13 @@
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <?php if ($dataUser['role'] == 'administrator'): ?>
+        <!-- Sidebar Toggle (Topbar) -->
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+        </button>
+    <?php endif ?>
 
-    <!-- Sidebar Toggle (Topbar) -->
-    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-        <i class="fa fa-bars"></i>
-    </button>
-
-
+    <a class="nav-link btn btn-primary btn-sm text-white" href="pelanggan.php">Pesanan Saya</a>
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
         <?php if ($dataUser['role'] == 'administrator'): ?>
@@ -29,6 +30,7 @@
         <?php endif ?>
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
+
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $dataUser['nama_lengkap']; ?></span>

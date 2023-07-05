@@ -53,8 +53,9 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
-        <?php include 'sidebar.php'; ?>
+        <?php if ($dataUser['role'] == 'administrator'): ?>
+            <?php include 'sidebar.php'; ?>
+        <?php endif ?>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
