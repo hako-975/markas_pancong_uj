@@ -13,13 +13,13 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-        <li class="nav-item <?= (strpos($_SERVER['REQUEST_URI'], "/markas_pancong_uj/dashboard.php") === 0)? 'btn-pancong active' : ''; ?>">
+    <li class="nav-item <?= (strpos($_SERVER['REQUEST_URI'], "/dashboard.php") === 0)? 'btn-pancong active' : ''; ?>">
         <a class="nav-link" href="dashboard.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
     <hr class="sidebar-divider my-0">
-    <li class="nav-item <?= (strpos($_SERVER['REQUEST_URI'], "/markas_pancong_uj/pesanan.php") === 0)? 'btn-pancong active' : ''; ?>">
+    <li class="nav-item <?= (strpos($_SERVER['REQUEST_URI'], "/pesanan.php") === 0)? 'btn-pancong active' : ''; ?>">
         <a class="nav-link" href="pesanan.php">
             <i class="fas fa-fw fa-shopping-cart"></i>
             <span>Pesanan</span></a>
@@ -45,19 +45,19 @@
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-    <li class="nav-item <?= (strpos($_SERVER['REQUEST_URI'], "/markas_pancong_uj/laporan.php") === 0)? 'btn-pancong active' : ''; ?>">
+    <li class="nav-item <?= (strpos($_SERVER['REQUEST_URI'], "/laporan.php") === 0)? 'btn-pancong active' : ''; ?>">
         <a class="nav-link" href="laporan.php">
             <i class="fas fa-fw fa-file-alt"></i>
             <span>Laporan</span></a>
     </li>
     <hr class="sidebar-divider my-0">
-    <li class="nav-item <?= (strpos($_SERVER['REQUEST_URI'], "/markas_pancong_uj/riwayat.php") === 0)? 'btn-pancong active' : ''; ?>">
+    <li class="nav-item <?= (strpos($_SERVER['REQUEST_URI'], "/riwayat.php") === 0)? 'btn-pancong active' : ''; ?>">
         <a class="nav-link" href="riwayat.php">
             <i class="fas fa-fw fa-history"></i>
             <span>Riwayat</span></a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
-
+    
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

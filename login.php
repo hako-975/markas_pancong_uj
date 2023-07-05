@@ -1,6 +1,5 @@
 <?php 
     require_once 'koneksi.php';
-
     if (isset($_POST['btnLogin'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -13,8 +12,14 @@
                 mysqli_query($koneksi, "INSERT INTO riwayat VALUES ('', 'User Berhasil login!', '$tgl_riwayat', '$id_user')");
                 $_SESSION['id_user'] = $id_user;
                 $_SESSION['username'] = $dataUser['username'];
-                header("Location:dashboard.php");
-                exit;
+                $_SESSION['role'] = $dataUser['role'];
+                if ($dataUser['role'] == 'administrator') {
+                    header("Location:dashboard.php");
+                    exit;
+                } else {
+                    header("Location:pelanggan.php");
+                    exit;
+                }
             }
             else
             {
@@ -81,7 +86,7 @@
                                             <button type="submit" name="btnLogin" class="btn btn-warning btn-pancong font-weight-bold btn-user btn-block">Login</button>
                                         </div>
                                     </form>
-                                    <a href="index.php" class="text-pancong">Bukan Admin?</a>
+                                    <a href="registrasi.php" class="text-pancong text-center mx-auto d-block">Belum punya akun? Registrasi</a>
                                 </div>
                             </div>
                         </div>

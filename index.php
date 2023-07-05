@@ -1,5 +1,9 @@
 <?php 
   require_once 'koneksi.php';
+  if (isset($_SESSION['id_user'])) {
+    header("Location: dashboard.php");
+    exit;
+  }
   $menu_makanan = mysqli_query($koneksi, "SELECT * FROM menu WHERE jenis_menu = 'makanan'");
   $menu_minuman = mysqli_query($koneksi, "SELECT * FROM menu WHERE jenis_menu = 'minuman'");
 
@@ -26,6 +30,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link btn btn-warning btn-pancong m-1" href="pesan.php"><i class="fas fa-fw fa-shopping-cart"></i> Pesan Sekarang!</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-warning btn-pancong m-1" href="login.php"><i class="fas fa-fw fa-sign-in-alt"></i> Login</a>
           </li>
         </ul>
       </div>

@@ -1,20 +1,98 @@
 <?php 
 require_once 'koneksi.php';
 
+if (isset($_POST['btnCheckout'])) {
+  unset($_SESSION['menu_items']);
+
+  $id_menu = $_POST['id_menu'];
+  $jml_menu = $_POST['jml_menu'];
+
+  $menu_items = array();
+
+  for ($i=0; $i < count($id_menu); $i++) { 
+    $menu_items[] = [
+      "id_menu" => $id_menu[$i], 
+      "jml_menu" => $jml_menu[$i]
+    ];
+  }
+
+  $all_zero = true;
+  foreach ($menu_items as $item) {
+    if ($item['jml_menu'] != 0) {
+      $all_zero = false;
+      break;
+    }
+  }
+
+  if ($all_zero) {
+    setAlert("Perhatian!", "Pilih setidaknya satu menu!", "error");
+    echo "
+      <script>
+        window.history.back();
+      </script>
+    ";
+    exit;
+  }
+}
+else {
+  if (!isset($_SESSION['menu_items'])) {
+    $id_menu = $_POST['id_menu'];
+    $jml_menu = $_POST['jml_menu'];
+
+    $menu_items = array();
+
+    for ($i=0; $i < count($id_menu); $i++) { 
+      $menu_items[] = [
+        "id_menu" => $id_menu[$i], 
+        "jml_menu" => $jml_menu[$i]
+      ];
+    }
+
+    $all_zero = true;
+    foreach ($menu_items as $item) {
+      if ($item['jml_menu'] != 0) {
+        $all_zero = false;
+        break;
+      }
+    }
+
+    if ($all_zero) {
+      setAlert("Perhatian!", "Pilih setidaknya satu menu!", "error");
+      echo "
+        <script>
+          window.history.back();
+        </script>
+      ";
+      exit;
+    }
+    $_SESSION['menu_items'] = $menu_items;
+  } else {
+    $menu_items = $_SESSION['menu_items'];
+  }
+}
+
+
+
+if (!isset($_SESSION['id_user'])) {
+  header("Location: login.php");
+  exit;
+}
+
+$id_user = $_SESSION['id_user'];
+
+if (!$dataUser = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM user WHERE id_user = '$id_user'"))) {
+  header("Location: logout.php");
+  exit;
+}
+
 if (isset($_POST['btnPesan'])) {
   $menu_items = unserialize($_POST['menu_items']);
-
-  $nama_pemesan = htmlspecialchars($_POST['nama_pemesan']);
-  $no_telp_pemesan = htmlspecialchars($_POST['no_telp_pemesan']);
-  if (substr($no_telp_pemesan, 0, 2) == "08") { // check if it starts with "08"
-    $no_telp_pemesan = "62" . substr($no_telp_pemesan, 1);
-  }
-  $alamat_pemesan = htmlspecialchars($_POST['alamat_pemesan']);
+  $no_telp_pemesan = $dataUser['no_telepon'];
   $total_pembayaran = htmlspecialchars($_POST['total_pembayaran']);
   $tanggal_pesanan = date('Y-m-d H:i:s:s');
   $kode_pesanan = $no_telp_pemesan . '-' . kodePesananUnik();
 
-  $insert_pesanan = mysqli_query($koneksi, "INSERT INTO pesanan (kode_pesanan, nama_pemesan, no_telp_pemesan, alamat_pemesan, tanggal_pesanan, total_pembayaran, status_pesanan, status_notif) VALUES ('$kode_pesanan', '$nama_pemesan', '$no_telp_pemesan', '$alamat_pemesan', '$tanggal_pesanan', '$total_pembayaran', 'proses', '0')");
+  $insert_pesanan = mysqli_query($koneksi, "INSERT INTO pesanan (kode_pesanan, tanggal_pesanan, total_pembayaran, status_pesanan, status_notif) VALUES ('$kode_pesanan', '$tanggal_pesanan', '$total_pembayaran', 'proses', '0')");
 
   foreach ($menu_items as $mi) {
     $id_menu_mi = $mi['id_menu']; 
@@ -45,34 +123,6 @@ if (!isset($_POST['id_menu'])) {
   exit;
 }
 
-$id_menu = $_POST['id_menu'];
-$jml_menu = $_POST['jml_menu'];
-
-$menu_items = array();
-
-for ($i=0; $i < count($id_menu); $i++) { 
-  $menu_items[] = [
-    "id_menu" => $id_menu[$i], 
-    "jml_menu" => $jml_menu[$i]
-  ];
-}
-
-$all_zero = true;
-foreach ($menu_items as $item) {
-  if ($item['jml_menu'] != 0) {
-    $all_zero = false;
-    break;
-  }
-}
-
-if ($all_zero) {
-  setAlert("Perhatian!", "Pilih setidaknya satu menu!", "error");
-  echo "
-    <script>
-      window.history.back();
-    </script>
-  ";
-}
 
 ?>
 
@@ -133,15 +183,15 @@ if ($all_zero) {
           <input type="hidden" name="total_pembayaran" value="<?= $total_pembayaran; ?>">
           <div class="form-group">
             <label for="nama_pemesan">Nama Pemesan</label>
-            <input type="text" class="form-control" id="nama_pemesan" name="nama_pemesan" required>
+            <input type="text" class="form-control" id="nama_pemesan" name="nama_pemesan" required disabled value="<?= $dataUser['nama_lengkap']; ?>">
           </div>
           <div class="form-group">
             <label for="no_telp_pemesan">WhatsApp Pemesan</label>
-            <input type="number" class="form-control" id="no_telp_pemesan" name="no_telp_pemesan" required>
+            <input type="number" class="form-control" id="no_telp_pemesan" name="no_telp_pemesan" required disabled value="<?= $dataUser['no_telepon']; ?>">
           </div>
           <div class="form-group">
             <label for="alamat_pemesan">Lokasi Pengantaran</label>
-            <textarea class="form-control" id="alamat_pemesan" name="alamat_pemesan" required></textarea>
+            <textarea class="form-control" id="alamat_pemesan" name="alamat_pemesan" required disabled><?= $dataUser['alamat']; ?></textarea>
           </div>
           <div class="form-group text-right">
             <button type="submit" class="btn btn-success" name="btnPesan"><i class="fa fa-fw fa-paper-plane"></i> Pesan</button>

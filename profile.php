@@ -10,7 +10,9 @@
     if (isset($_POST['btnUbahProfile'])) {
         $username = $_POST['username'];
         $nama_lengkap = $_POST['nama_lengkap'];
-        $update_profile = mysqli_query($koneksi, "UPDATE user SET username = '$username', nama_lengkap = '$nama_lengkap' WHERE id_user = '$id_user'");
+        $no_telepon = $_POST['no_telepon'];
+        $alamat = $_POST['alamat'];
+        $update_profile = mysqli_query($koneksi, "UPDATE user SET username = '$username', nama_lengkap = '$nama_lengkap', no_telepon = '$no_telepon', alamat = '$alamat' WHERE id_user = '$id_user'");
         if ($update_profile) {
             $tgl_riwayat = date('Y-m-d H:i:s');
             mysqli_query($koneksi, "INSERT INTO riwayat VALUES ('', 'Profile berhasil diubah!', '$tgl_riwayat', '$id_user')");
@@ -80,6 +82,14 @@
                                 <div class="form-group">
                                     <label for="nama_lengkap">Nama Lengkap</label>
                                     <input type="text" class="form-control" name="nama_lengkap" value="<?= $dataUser['nama_lengkap']; ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="no_telepon">No. Telepon</label>
+                                    <input type="text" class="form-control" name="no_telepon" value="<?= $dataUser['no_telepon']; ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="alamat">Alamat</label>
+                                    <textarea class="form-control" name="alamat" required><?= $dataUser['alamat']; ?></textarea>
                                 </div>
                                 <div class="row">
                                     <div class="col text-left">

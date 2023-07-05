@@ -5,6 +5,11 @@
         exit;
     }
 
+    if ($_SESSION['role'] != 'administrator') {
+        header("Location: pelanggan.php");
+        exit;
+    }
+
     $id_user = $_SESSION['id_user'];
     
     if (!$dataUser = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM user WHERE id_user = '$id_user'"))) {

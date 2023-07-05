@@ -1,6 +1,6 @@
 <?php 
   require_once 'koneksi.php';
-
+  
   if (isset($_GET['keyword'])) {
     $keyword = $_GET['keyword'];
     $menu_makanan = mysqli_query($koneksi, "SELECT * FROM menu WHERE jenis_menu = 'makanan' AND nama_menu LIKE '%$keyword%'");
@@ -35,7 +35,7 @@
       <form>
         <h4 class="text-left text-pancong">Cari Menu</h4>
         <div class="input-group mb-3">
-          <input type="text" name="keyword" id="keyword" class="form-control" placeholder="<?= ucwords($menu_paling_laku['nama_menu']); ?> (HOT!)" aria-label="<?= ucwords($menu_paling_laku['nama_menu']); ?> (HOT!)" aria-describedby="button-search" value="<?php echo isset($_GET['keyword']) ? $_GET['keyword'] : ''; ?>">
+          <input type="text" name="keyword" id="keyword" class="form-control" placeholder="<?= ($menu_paling_laku) ? ucwords($menu_paling_laku['nama_menu'] . ' (HOT!)') : 'Pancong'; ?>" aria-describedby="button-search" value="<?php echo isset($_GET['keyword']) ? $_GET['keyword'] : ''; ?>">
           <div class="input-group-append">
             <button type="button" class="btn btn-pancong" onclick="clearSearch()"><i class="fas fa-fw fa-times"></i> Clear</button>
           </div>
@@ -58,7 +58,7 @@
                         <img src="img/menu/<?= $dmm['foto_menu']; ?>" class="card-img-top" alt="<?= $dmm['foto_menu']; ?>">
                       </div>
                       <div class="card-body">
-                        <h5 class="card-title"><?= $dmm['nama_menu']; ?> <?= ($menu_paling_laku['nama_menu'] == $dmm['nama_menu']) ? '(PALING LAKU)' : ''; ?></h5>
+                        <h5 class="card-title"><?= $dmm['nama_menu']; ?> <?= ($menu_paling_laku) ? ($menu_paling_laku['nama_menu'] == $dmm['nama_menu']) ? '(PALING LAKU)' : '' : ''; ?></h5>
                         <p class="card-text">Rp. <?= str_replace(",", ".", number_format($dmm['harga_menu'])); ?></p>
                         <input type="hidden" name="id_menu[]" value="<?= $dmm['id_menu']; ?>">
                         <div class="input-group mb-3">
