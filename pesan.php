@@ -2,8 +2,7 @@
   require_once 'koneksi.php';
   
   if (isset($_SESSION['menu_items'])) {
-    header("Location:checkout.php");
-    exit;
+    unset($_SESSION['menu_items']);
   }
 
   if (isset($_GET['keyword'])) {
