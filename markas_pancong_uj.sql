@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Jul 2023 pada 03.07
+-- Waktu pembuatan: 05 Jul 2023 pada 14.58
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.2.0
 
@@ -134,7 +134,18 @@ INSERT INTO `riwayat` (`id_riwayat`, `isi_riwayat`, `tanggal_riwayat`, `id_user`
 (31, 'User Berhasil login!', '2023-07-05 07:59:23', 1),
 (32, 'User Berhasil login!', '2023-07-05 08:00:29', 6),
 (33, 'Profile berhasil diubah!', '2023-07-05 08:05:39', 6),
-(34, 'Profile berhasil diubah!', '2023-07-05 08:05:53', 6);
+(34, 'Profile berhasil diubah!', '2023-07-05 08:05:53', 6),
+(35, 'User Berhasil login!', '2023-07-05 18:41:22', 6),
+(36, 'User Berhasil login!', '2023-07-05 18:43:08', 6),
+(37, 'User Berhasil login!', '2023-07-05 18:43:24', 6),
+(38, 'User Berhasil login!', '2023-07-05 19:02:06', 6),
+(39, 'User Berhasil login!', '2023-07-05 19:22:00', 1),
+(40, 'Status Pesanan Berhasil diubah! dengan kode pesanan 6287808675313-JfePp', '2023-07-05 19:22:10', 1),
+(41, 'Pesanan Berhasil dihapus!', '2023-07-05 19:24:48', 1),
+(42, 'Status Pesanan Berhasil diubah! dengan kode pesanan 6287808675313-n7khH', '2023-07-05 19:27:15', 1),
+(43, 'Menu Pesanan berhasil ditambahkan!', '2023-07-05 19:38:24', 1),
+(44, 'Status Pesanan Berhasil diubah! dengan kode pesanan 6287808675313-s5WE6', '2023-07-05 19:38:28', 1),
+(45, 'Mencetak Laporan!', '2023-07-05 19:43:18', 1);
 
 -- --------------------------------------------------------
 
@@ -157,8 +168,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `nama_lengkap`, `no_telepon`, `alamat`, `role`) VALUES
-(1, 'admin', '$2y$10$r3.8/f6Dkx5bUj795Dap6.TWL9rTwRNAxvKdIEQ1epiTb4eAFBfmO', 'Admin', '', '', 'administrator'),
-(6, 'hako', '$2y$10$84RywxNXPCckF5JxjSgmfeONNPkIJKUYwGIUuitAp90teACnVIuxG', 'Andri Firman Saputra', '6287808675313', 'Jl. AMD Babakan Pocis No. 88 RT04/RW02,  Kelurahan Bakti Jaya, Kecamatan Setu, Kota Tangerang Selatan, Provinsi Banten, Indonesia. Kode Pos 15315', 'pelanggan');
+(1, 'admin', '$2y$10$r3.8/f6Dkx5bUj795Dap6.TWL9rTwRNAxvKdIEQ1epiTb4eAFBfmO', 'Admin', '', '', 'administrator');
 
 --
 -- Indexes for dumped tables
@@ -219,7 +229,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT untuk tabel `riwayat`
 --
 ALTER TABLE `riwayat`
-  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
