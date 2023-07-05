@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Jun 2023 pada 17.16
+-- Waktu pembuatan: 05 Jul 2023 pada 03.07
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.2.0
 
@@ -76,13 +76,10 @@ INSERT INTO `menu` (`id_menu`, `nama_menu`, `harga_menu`, `jenis_menu`, `foto_me
 
 CREATE TABLE `pesanan` (
   `kode_pesanan` varchar(25) NOT NULL,
-  `nama_pemesan` varchar(50) NOT NULL,
-  `no_telp_pemesan` varchar(20) NOT NULL,
-  `alamat_pemesan` text NOT NULL,
   `tanggal_pesanan` datetime NOT NULL,
   `total_pembayaran` int(11) DEFAULT NULL,
   `status_pesanan` enum('proses','dibuat','perjalanan','selesai') NOT NULL DEFAULT 'proses',
-  `id_user` int(11) DEFAULT NULL,
+  `id_user` int(11) NOT NULL,
   `status_notif` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -127,7 +124,17 @@ INSERT INTO `riwayat` (`id_riwayat`, `isi_riwayat`, `tanggal_riwayat`, `id_user`
 (21, 'Mencetak Laporan!', '2023-05-27 12:54:59', 1),
 (22, 'Mencetak Laporan!', '2023-05-27 12:56:32', 1),
 (23, 'User Berhasil login!', '2023-05-30 09:35:39', 1),
-(24, 'User Berhasil login!', '2023-06-09 16:42:35', 1);
+(24, 'User Berhasil login!', '2023-06-09 16:42:35', 1),
+(25, 'User berhasil ditambahkan!', '2023-07-01 13:35:45', 6),
+(26, 'User Berhasil login!', '2023-07-01 13:37:57', 6),
+(27, 'User Berhasil login!', '2023-07-01 13:39:00', 1),
+(28, 'User Berhasil login!', '2023-07-01 13:39:59', 6),
+(29, 'User Berhasil login!', '2023-07-01 14:06:07', 6),
+(30, 'User Berhasil login!', '2023-07-05 06:24:00', 6),
+(31, 'User Berhasil login!', '2023-07-05 07:59:23', 1),
+(32, 'User Berhasil login!', '2023-07-05 08:00:29', 6),
+(33, 'Profile berhasil diubah!', '2023-07-05 08:05:39', 6),
+(34, 'Profile berhasil diubah!', '2023-07-05 08:05:53', 6);
 
 -- --------------------------------------------------------
 
@@ -139,15 +146,19 @@ CREATE TABLE `user` (
   `id_user` int(11) NOT NULL,
   `username` varchar(10) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `nama_lengkap` varchar(50) NOT NULL
+  `nama_lengkap` varchar(50) NOT NULL,
+  `no_telepon` varchar(20) NOT NULL,
+  `alamat` text NOT NULL,
+  `role` enum('administrator','pelanggan') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id_user`, `username`, `password`, `nama_lengkap`) VALUES
-(1, 'admin', '$2y$10$r3.8/f6Dkx5bUj795Dap6.TWL9rTwRNAxvKdIEQ1epiTb4eAFBfmO', 'Admin');
+INSERT INTO `user` (`id_user`, `username`, `password`, `nama_lengkap`, `no_telepon`, `alamat`, `role`) VALUES
+(1, 'admin', '$2y$10$r3.8/f6Dkx5bUj795Dap6.TWL9rTwRNAxvKdIEQ1epiTb4eAFBfmO', 'Admin', '', '', 'administrator'),
+(6, 'hako', '$2y$10$84RywxNXPCckF5JxjSgmfeONNPkIJKUYwGIUuitAp90teACnVIuxG', 'Andri Firman Saputra', '6287808675313', 'Jl. AMD Babakan Pocis No. 88 RT04/RW02,  Kelurahan Bakti Jaya, Kecamatan Setu, Kota Tangerang Selatan, Provinsi Banten, Indonesia. Kode Pos 15315', 'pelanggan');
 
 --
 -- Indexes for dumped tables
@@ -208,13 +219,13 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT untuk tabel `riwayat`
 --
 ALTER TABLE `riwayat`
-  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
