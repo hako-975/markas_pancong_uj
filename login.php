@@ -51,7 +51,7 @@
 </head>
 
 <body style="background-color: #F8B211;">
-
+    <?php include_once 'navbar.php'; ?>
     <div class="container">
 
         <!-- Outer Row -->

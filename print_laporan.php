@@ -80,9 +80,9 @@
                  ?>
                 <tr>
                     <td><?= $i++; ?></td>
-                    <td><?= $dp['nama_pemesan']; ?></td>
-                    <td><?= $dp['no_telp_pemesan']; ?></td>
-                    <td><?= $dp['alamat_pemesan']; ?></td>
+                    <td><?= $dp['nama_lengkap']; ?></td>
+                    <td><?= $dp['no_telepon']; ?></td>
+                    <td><?= $dp['alamat']; ?></td>
                     <td><?= $dp['tanggal_pesanan']; ?></td>
                     <td>Rp. <?= str_replace(",", ".", number_format($dp['total_pembayaran'])); ?></td>
                     <td><?= $dp['status_pesanan']; ?></td>

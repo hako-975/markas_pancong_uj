@@ -3,7 +3,7 @@ require 'koneksi.php';
 
 if (isset($_GET['kode_pesanan'])) {
   $kode_pesanan = $_GET['kode_pesanan'];
-  $pesanan = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE kode_pesanan = '$kode_pesanan'"));
+  $pesanan = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM pesanan INNER JOIN user ON pesanan.id_user = user.id_user WHERE kode_pesanan = '$kode_pesanan'"));
   if ($pesanan == null) {
     header("Location: status_pesanan.php");
     exit;
@@ -22,11 +22,11 @@ else {
 <html lang="en" id="home">
 
 <head>
-  <title>Status Pesanan <?php if (isset($_GET['kode_pesanan'])) { echo $pesanan['nama_pemesan']; } ?> - Markas Pancong UJ</title>
+  <title>Status Pesanan <?php if (isset($_GET['kode_pesanan'])) { echo $pesanan['nama_lengkap']; } ?> - Markas Pancong UJ</title>
   <?php include 'head.php' ?>
 </head>
 <body>
-    <h3 class="text-center mt-3">Status Pesanan<?php if (isset($_GET['kode_pesanan'])) { echo "<br>".$pesanan['nama_pemesan']; } ?></h3>
+    <h3 class="text-center mt-3">Status Pesanan<?php if (isset($_GET['kode_pesanan'])) { echo "<br>".$pesanan['nama_lengkap']; } ?></h3>
     <hr>
 	<h5>Kode Pesanan: <?= $pesanan['kode_pesanan']; ?></h5>
 	<hr>
@@ -36,17 +36,17 @@ else {
 	        <tr>
 	          <th>Nama Pemesan</th>
 	          <th>:</th>
-	          <td><?= $pesanan['nama_pemesan']; ?></td>
+	          <td><?= $pesanan['nama_lengkap']; ?></td>
 	        </tr>
 	        <tr>
 	          <th>WhatsApp Pemesan</th>
 	          <th>:</th>
-	          <td><?= $pesanan['no_telp_pemesan']; ?></td>
+	          <td><?= $pesanan['no_telepon']; ?></td>
 	        </tr>
 	        <tr>
 	          <th>Alamat Pemesan</th>
 	          <th>:</th>
-	          <td><?= $pesanan['alamat_pemesan']; ?></td>
+	          <td><?= $pesanan['alamat']; ?></td>
 	        </tr>
 	      </table>
 	    </div>

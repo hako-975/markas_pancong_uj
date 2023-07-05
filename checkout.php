@@ -33,42 +33,10 @@ if (isset($_POST['btnCheckout'])) {
     ";
     exit;
   }
-}
-else {
-  if (!isset($_SESSION['menu_items'])) {
-    $id_menu = $_POST['id_menu'];
-    $jml_menu = $_POST['jml_menu'];
 
-    $menu_items = array();
-
-    for ($i=0; $i < count($id_menu); $i++) { 
-      $menu_items[] = [
-        "id_menu" => $id_menu[$i], 
-        "jml_menu" => $jml_menu[$i]
-      ];
-    }
-
-    $all_zero = true;
-    foreach ($menu_items as $item) {
-      if ($item['jml_menu'] != 0) {
-        $all_zero = false;
-        break;
-      }
-    }
-
-    if ($all_zero) {
-      setAlert("Perhatian!", "Pilih setidaknya satu menu!", "error");
-      echo "
-        <script>
-          window.history.back();
-        </script>
-      ";
-      exit;
-    }
-    $_SESSION['menu_items'] = $menu_items;
-  } else {
-    $menu_items = $_SESSION['menu_items'];
-  }
+  $_SESSION['menu_items'] = $menu_items;
+} else {
+  $menu_items = $_SESSION['menu_items'];
 }
 
 
@@ -86,13 +54,11 @@ if (!$dataUser = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM user W
 }
 
 if (isset($_POST['btnPesan'])) {
-  $menu_items = unserialize($_POST['menu_items']);
   $no_telp_pemesan = $dataUser['no_telepon'];
   $total_pembayaran = htmlspecialchars($_POST['total_pembayaran']);
   $tanggal_pesanan = date('Y-m-d H:i:s:s');
   $kode_pesanan = $no_telp_pemesan . '-' . kodePesananUnik();
-
-  $insert_pesanan = mysqli_query($koneksi, "INSERT INTO pesanan (kode_pesanan, tanggal_pesanan, total_pembayaran, status_pesanan, status_notif) VALUES ('$kode_pesanan', '$tanggal_pesanan', '$total_pembayaran', 'proses', '0')");
+  $insert_pesanan = mysqli_query($koneksi, "INSERT INTO pesanan (kode_pesanan, tanggal_pesanan, total_pembayaran, status_pesanan, id_user, status_notif) VALUES ('$kode_pesanan', '$tanggal_pesanan', '$total_pembayaran', 'proses', $id_user, '0')");
 
   foreach ($menu_items as $mi) {
     $id_menu_mi = $mi['id_menu']; 
@@ -105,24 +71,13 @@ if (isset($_POST['btnPesan'])) {
   }
 
   if ($insert_detail_pesanan) {
-    $_SESSION['kode_pesanan'] = $kode_pesanan;
-    $nama_depan_pemesan = explode(" ", $nama_pemesan)[0];
+    $nama_depan_pemesan = explode(" ", $dataUser['nama_lengkap'])[0];
     setAlert("Berhasil!", "Pesanan kak " . $nama_depan_pemesan . " lagi disiapin!", "success");
+    unset($_SESSION['menu_items']);
     header("Location: status_pesanan.php?kode_pesanan=$kode_pesanan");
     exit;
-
   }
 }
-
-if (!isset($_POST['id_menu'])) {
-  echo "
-    <script>
-      window.history.back();
-    </script>
-  ";
-  exit;
-}
-
 
 ?>
 

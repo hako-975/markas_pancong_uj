@@ -20,11 +20,11 @@
         $dari_tanggal_baru =  $dari_tanggal . ' 00:00:00';
         $sampai_tanggal_baru =  $sampai_tanggal . ' 23:59:59';
         if ($status_pesanan == 'semua') {
-            $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan LEFT JOIN user ON pesanan.id_user = user.id_user WHERE pesanan.tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru' ORDER BY pesanan.tanggal_pesanan ASC");
+            $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan INNER JOIN user ON pesanan.id_user = user.id_user WHERE pesanan.tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru' ORDER BY pesanan.tanggal_pesanan ASC");
         }
         else
         {
-            $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan LEFT JOIN user ON pesanan.id_user = user.id_user WHERE status_pesanan = '$status_pesanan' AND tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru' ORDER BY tanggal_pesanan ASC");
+            $pesanan = mysqli_query($koneksi, "SELECT * FROM pesanan INNER JOIN user ON pesanan.id_user = user.id_user WHERE status_pesanan = '$status_pesanan' AND tanggal_pesanan BETWEEN '$dari_tanggal_baru' AND '$sampai_tanggal_baru' ORDER BY tanggal_pesanan ASC");
         }
     }
  ?>
@@ -126,9 +126,9 @@
                                          ?>
                                         <tr>
                                             <td><?= $i++; ?></td>
-                                            <td><?= $dp['nama_pemesan']; ?></td>
-                                            <td><?= $dp['no_telp_pemesan']; ?></td>
-                                            <td><?= $dp['alamat_pemesan']; ?></td>
+                                            <td><?= $dp['nama_lengkap']; ?></td>
+                                            <td><?= $dp['no_telepon']; ?></td>
+                                            <td><?= $dp['alamat']; ?></td>
                                             <td><?= $dp['tanggal_pesanan']; ?></td>
                                             <td>Rp. <?= str_replace(",", ".", number_format($dp['total_pembayaran'])); ?></td>
                                             <td><?= $dp['status_pesanan']; ?></td>

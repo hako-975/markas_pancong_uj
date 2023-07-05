@@ -1,6 +1,11 @@
 <?php 
   require_once 'koneksi.php';
   
+  if (isset($_SESSION['menu_items'])) {
+    header("Location:checkout.php");
+    exit;
+  }
+
   if (isset($_GET['keyword'])) {
     $keyword = $_GET['keyword'];
     $menu_makanan = mysqli_query($koneksi, "SELECT * FROM menu WHERE jenis_menu = 'makanan' AND nama_menu LIKE '%$keyword%'");
@@ -25,12 +30,7 @@
 </head>
 <body style="background-color: black;">
   <section class="fixed-top d-flex flex-column">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
-      <div class="container">
-        <a class="navbar-brand" href="index.php"><img src="img/logo.png" alt="logo"><span>Markas Pancong UJ</span></a>
-        <a class="nav-link btn btn-warning btn-pancong text-center text-white m-1" href="status_pesanan.php"><i class="fas fa-fw fa-check"></i> Cek Status Pesanan</a>
-      </div>
-    </nav>
+    <?php include_once 'navbar.php'; ?>
     <div class="container bg-black">
       <form>
         <h4 class="text-left text-pancong">Cari Menu</h4>

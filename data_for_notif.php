@@ -2,12 +2,12 @@
 	require_once 'koneksi.php';
 
 	if (isset($_GET['counter'])) {
-		$data = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_notif = '0'");
+		$data = mysqli_query($koneksi, "SELECT * FROM pesanan INNER JOIN user ON pesanan.id_user = user.id_user WHERE status_notif = '0'");
 		echo mysqli_num_rows($data);
 	}
 
 	if (isset($_GET['content-notif'])) {
-		$data = mysqli_query($koneksi, "SELECT * FROM pesanan WHERE status_notif = '0' || status_pesanan = 'proses' ORDER BY tanggal_pesanan ASC");
+		$data = mysqli_query($koneksi, "SELECT * FROM pesanan INNER JOIN user ON pesanan.id_user = user.id_user WHERE status_notif = '0' || status_pesanan = 'proses' ORDER BY tanggal_pesanan ASC");
 		if (mysqli_num_rows($data) > 0) {
 			foreach ($data as $d) {
 				$kode_pesanan = $d['kode_pesanan'];
@@ -15,7 +15,7 @@
 				echo '
 					<a class="dropdown-item align-items-center" href="detail_pesanan.php?kode_pesanan='.$kode_pesanan.'">';
 				?>
-						<h6 class="font-weight-bold">Pesanan kak <?= $d['nama_pemesan']; ?></h6>
+						<h6 class="font-weight-bold">Pesanan kak <?= $d['nama_lengkap']; ?></h6>
 						<ul class="mb-2">
 						<?php foreach ($detail_pesanan as $ddp): ?>
 		                    <li style="margin-left: -20px;">

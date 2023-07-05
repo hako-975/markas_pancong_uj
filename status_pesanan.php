@@ -1,9 +1,8 @@
 <?php 
 require_once 'koneksi.php';
-
 if (isset($_GET['kode_pesanan'])) {
   $kode_pesanan = $_GET['kode_pesanan'];
-  $pesanan = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM pesanan WHERE kode_pesanan = '$kode_pesanan'"));
+  $pesanan = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM pesanan INNER JOIN user ON pesanan.id_user = user.id_user WHERE kode_pesanan = '$kode_pesanan'"));
 
   if ($pesanan == null) {
     setAlert("Perhatian!", "Kode Pesanan yang Anda masukkan tidak ditemukan!", "error");
@@ -20,7 +19,7 @@ if (isset($_GET['kode_pesanan'])) {
 <html lang="en" id="home">
 
 <head>
-  <title>Status Pesanan <?php if (isset($_GET['kode_pesanan'])) { echo $pesanan['nama_pemesan']; } ?> - Markas Pancong UJ</title>
+  <title>Status Pesanan <?php if (isset($_GET['kode_pesanan'])) { echo $pesanan['nama_lengkap']; } ?> - Markas Pancong UJ</title>
   <?php include 'head.php' ?>
 </head>
 <body>
@@ -29,7 +28,7 @@ if (isset($_GET['kode_pesanan'])) {
       <div class="col-lg-8">
         <div class="row justify-content-between">
           <div class="col text-left">
-            <a href="pesan.php" class="btn btn-primary"><i class="fas fa-fw fa-arrow-left"></i> Kembali</a>
+            <a href="pelanggan.php" class="btn btn-primary"><i class="fas fa-fw fa-arrow-left"></i> Kembali</a>
           </div>
         <?php if (isset($_GET['kode_pesanan'])): ?>
           <div class="col text-right">
@@ -37,7 +36,7 @@ if (isset($_GET['kode_pesanan'])) {
           </div>
         <?php endif ?>
         </div>
-        <h3 class="text-center mt-3">Status Pesanan<?php if (isset($_GET['kode_pesanan'])) { echo "<br>".$pesanan['nama_pemesan']; } ?></h3>
+        <h3 class="text-center mt-3">Status Pesanan<?php if (isset($_GET['kode_pesanan'])) { echo "<br>".$pesanan['nama_lengkap']; } ?></h3>
         <hr>
         <?php if (!isset($_GET['kode_pesanan'])): ?>
         <form class="form-inline mx-auto justify-content-center" method="GET">
@@ -61,17 +60,17 @@ if (isset($_GET['kode_pesanan'])) {
                 <tr>
                   <th>Nama Pemesan</th>
                   <th>:</th>
-                  <td><?= $pesanan['nama_pemesan']; ?></td>
+                  <td><?= $pesanan['nama_lengkap']; ?></td>
                 </tr>
                 <tr>
                   <th>WhatsApp Pemesan</th>
                   <th>:</th>
-                  <td><?= $pesanan['no_telp_pemesan']; ?></td>
+                  <td><?= $pesanan['no_telepon']; ?></td>
                 </tr>
                 <tr>
                   <th>Alamat Pemesan</th>
                   <th>:</th>
-                  <td><?= $pesanan['alamat_pemesan']; ?></td>
+                  <td><?= $pesanan['alamat']; ?></td>
                 </tr>
               </table>
             </div>
